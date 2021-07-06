@@ -1,6 +1,6 @@
 language: ruby
 rbenv:
-- 2.5.3
+- 2.7.2
 addons:
   postgresql: 9.6
 script:
@@ -9,5 +9,6 @@ script:
 deploy:
   provider: heroku
   api_key:
-  app:
+    secure: kD8Scl8fJ4ynUExHmblMEKdaZYqoBpGACbuf1Go5nULubjVVvfIWHlV6E8Wh+gN82BS7GbBN0afNy98ReWUUOR/6KrVi3WC4REKEbk446Zc5ATzfkFuSjEDnRJVhV7K8Z7exG9Vd3oIQ5LayzpfsRPprQnO79kAUqcUP+QiW9OM4MoHzfWZGTUm0pTRbPfLoF8a1bwDvf+FmN8lfgAGvHTDme0qBKzagNQs4X5OUZp67zQfn89Roa2kDXeQJKm2YlDhCn2CXcIsyn5cLu88ad2IzrOi6fEBxEpOezUz7DoSuZ5P3kKL4kDwrWzPhyy9rQi1o80yKjFZo8AVHZZ63NHZHv9+8OPB6iuvbtRgieiqtnzHypLrrh23YgtYMuI6nf/M1H0T5PXAkL4SY4CD/8jduxnWPoY961gpfa/50vgBrtumhfI+Mc87jcMD2gh6b0c3Ab0py13r5vM15Yaexv2ikkFNjrJKFLgIDoXzSjATFhyigbQct7n6v0mQSDUuRCy3OzEK7sK/Yg5HkPowSBJ0cRsPpQgItJxqQ8H7eSuw54i06mO5Ous4Apvxql2jRIUarsINxM8Bn8hbNdTAjcMK0Mf36ywnDIQdnfKk6kl5CIDwX0l4kGB5Mq+R+y2TwXD3oVsUNICjSCrTxc7JyOcFBtp2yU/aros8T6IZoF4w=
+  app: https://rocky-retreat-38535.herokuapp.com/\
   run: rails db:migrate

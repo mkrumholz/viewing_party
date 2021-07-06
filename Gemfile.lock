@@ -84,6 +84,8 @@ GEM
     faraday_middleware (1.0.0)
       faraday (~> 1.0)
     ffi (1.15.0)
+    figaro (1.2.0)
+      thor (>= 0.14.0, < 2)
     gh (0.18.0)
       activesupport (~> 5.0)
       addressable (~> 2.4)
@@ -267,6 +269,7 @@ DEPENDENCIES
   bootsnap
   capybara
   coffee-rails (~> 4.2)
+  figaro
   jbuilder (~> 2.5)
   launchy
   listen (>= 3.0.5, < 3.2)

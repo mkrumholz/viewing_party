@@ -12,9 +12,9 @@ RSpec.describe 'user registration form' do
     email = 'user@test.com'
     password = 'test_password'
 
-    fill_in :username, with: username
-    fill_in :email, with: email
-    fill_in :password, with: password    
+    fill_in :'user[username]', with: username
+    fill_in :'user[email]', with: email
+    fill_in :'user[password]', with: password    
 
     click_on 'Create User'
 

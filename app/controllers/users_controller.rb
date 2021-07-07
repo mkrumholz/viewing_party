@@ -6,9 +6,14 @@ class UsersController < ApplicationController
   def create
     user = user_params
     user[:email] = user[:email].downcase
-    new_user = User.create(user)
-    flash[:success] = "Welcome, #{new_user.username}!"
-    redirect_to root_path
+    new_user = User.new(user)
+    if new_user.save
+      flash[:success] = "Welcome, #{new_user.username}!"
+      redirect_to root_path
+    else
+      flash[:error] = 'User account not created'
+      redirect_to register_path
+    end
   end
 
   def login_form

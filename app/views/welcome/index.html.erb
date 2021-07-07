@@ -1,6 +1,10 @@
 <h2>Welcome to Viewing Party</h2>
 <p>
   Viewing party is an application in which users can explore movie options and create a viewing party event for the user and friends.
-</p>
-<%= link_to 'Register as a User', register_path %>
-<%= link_to 'I already have an account', login_path %>
+</p><br/>
+<% if current_user %>
+  <%= link_to 'Log out', '/logout', method: :delete %>
+<% else %>
+  <%= link_to 'Register as a User', register_path %>
+  <%= link_to 'I already have an account', login_path %>
+<% end %>

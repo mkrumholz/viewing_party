@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     user[:email] = user[:email].downcase
     new_user = User.new(user)
     if new_user.save
+      session[:user_id] = new_user.id
       flash[:success] = "Welcome, #{new_user.username}!"
       redirect_to root_path
     else
@@ -16,24 +17,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def login_form
-  end
-
-  def login
-    found_user = User.find_by(email: params[:email])
-    if found_user.authenticate(params[:password])
-      session[:user_id] = found_user.id 
-      flash[:success] = "Welcome, #{found_user.username}!"
-      redirect_to root_path
-    else
-      flash[:error] = 'User account not found or credentials are incorrect'
-      render :login_form
-    end
-  end
-
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 end

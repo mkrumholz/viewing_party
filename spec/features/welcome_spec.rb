@@ -15,9 +15,31 @@ RSpec.describe 'user registration form' do
     fill_in :'user[username]', with: username
     fill_in :'user[email]', with: email
     fill_in :'user[password]', with: password    
+    fill_in :'user[password_confirmation]', with: password    
 
     click_on 'Create User'
 
     expect(page).to have_content "Welcome, #{username}!"
+  end
+
+  it 'does not create a new user if password and confirmation do not match' do
+    visit root_path
+
+    click_on "Register as a User"
+
+    expect(current_path).to eq '/register'
+
+    username = 'test_user'
+    email = 'user@test.com'
+    password = 'test_password'
+
+    fill_in :'user[username]', with: username
+    fill_in :'user[email]', with: email
+    fill_in :'user[password]', with: password    
+    fill_in :'user[password_confirmation]', with: 'something else'    
+
+    click_on 'Create User'
+
+    expect(page).not_to have_content "Welcome, #{username}!"
   end
 end

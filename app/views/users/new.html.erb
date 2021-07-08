@@ -5,5 +5,7 @@
   <%= f.text_field :email %>
   <%= f.label :password, "Password:" %>
   <%= f.password_field :password %>
+  <%= f.label :password_confirmation, "Confirm Password:" %>
+  <%= f.password_field :password_confirmation %>
   <%= f.submit 'Create User' %>
 <% end %>

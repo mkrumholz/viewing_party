@@ -12,4 +12,10 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/dashboard', to: 'dashboard#show'
+
+  get '/discover', to: 'discover#index'
+
+  # namespace :discover do
+  #   resources :movies,
+  # end
 end

@@ -23,4 +23,13 @@ RSpec.describe 'User dashboard' do
     expect(page).not_to have_content("Welcome, #{user.username}!")
     expect(current_path).to eq root_path
   end
+
+  it "has a link to discover movies" do
+    user = User.create(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password')
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit '/dashboard'
+    expect(page).to have_link("Discover Movies")
+    click_on "Discover Movies"
+    expect(current_path).to eq("/discover")
+  end
 end

@@ -1,17 +1,30 @@
 class MoviesController < ApplicationController
   def index
-    @search_results = params[:results]
+    @search_results = params[:results].first(40)
   end
 
   def search
-    response = Faraday.get('https://api.themoviedb.org/3/search/movie') do |req|
+    response_1 = Faraday.get('https://api.themoviedb.org/3/search/movie') do |req|
       req.params['api_key'] = ENV['MOVIE_DB_KEY']
       req.params['language'] = 'en'
       req.params['include_adult'] = 'false'
       req.params['query'] = params[:title]
     end
-    json = JSON.parse(response.body, symbolize_names: true)
-    @search_results = json[:results]
+    json_1 = JSON.parse(response_1.body, symbolize_names: true)
+    search_results_page_1 = json_1[:results]
+
+    response_2 = Faraday.get('https://api.themoviedb.org/3/search/movie') do |req|
+      req.params['api_key'] = ENV['MOVIE_DB_KEY']
+      req.params['language'] = 'en'
+      req.params['include_adult'] = 'false'
+      req.params['query'] = params[:title]
+      req.params['page'] = 2
+    end
+    json_2 = JSON.parse(response_2.body, symbolize_names: true)
+    search_results_page_2 = json_2[:results]
+
+    @search_results = search_results_page_1 + search_results_page_2
+
     redirect_to movies_path(results: @search_results)
   end
 end

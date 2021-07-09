@@ -32,4 +32,18 @@ RSpec.describe 'User dashboard' do
     click_on "Discover Movies"
     expect(current_path).to eq("/discover")
   end
+
+  it "has a field to add a friend" do
+    user = User.create(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password')
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit '/dashboard'
+    expect(page).to have_button "Add Friend"
+  end
+
+  it "shows a message if user has no friends" do
+    user = User.create(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password')
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    visit '/dashboard'
+    expect(page).to have_content "You currently have no friends"
+  end
 end

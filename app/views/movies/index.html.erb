@@ -1,0 +1,10 @@
+<h1>Search Results</h1>
+
+<table>
+  <% @search_results.each do |result| %>
+    <tr>
+      <td><%= result[:title] %></td>
+      <td>Vote Average: <%= result[:vote_average] %></td>
+    </tr>
+  <% end %>
+</table>

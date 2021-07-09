@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new'
 
   resources :users, only: :create
-  resources :friends, only: [:new, :create]
+  resources :friendships, only: [:create]
 
 
   get '/login', to: 'sessions#new'

@@ -7,6 +7,16 @@ RSpec.describe 'search movies by title' do
 
     visit '/discover'
 
+    response_body = File.read('./spec/fixtures/search_results.json')
+    stub_request(:get, "https://api.themoviedb.org/3/search/movie?api_key=5aa90bee5771d3777a52a10d8dbc83ca&include_adult=false&language=en&query=Neverending%20Story").
+         with(
+           headers: {
+          'Accept'=>'*/*',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'User-Agent'=>'Faraday v1.4.1'
+           }).
+         to_return(status: 200, body: response_body, headers: {})
+
     fill_in :title, with: 'Neverending Story'
     click_on "Search"
 

@@ -4,9 +4,9 @@ class FriendshipsController < ApplicationController
     if friend.present?
       friendship = Friendship.new(user_id: current_user.id, friend_id: friend.id)
       if friendship.save
-        flash[:sucess] = "Friend successfully added!"
+        flash[:sucess] = 'Friend successfully added!'
       else
-        flash[:error] = "Friendship not successfully created."
+        flash[:error] = 'Friendship not successfully created.'
       end
     else
       flash[:error] = "Unable to add friend. User with email #{params[:email]} not found."

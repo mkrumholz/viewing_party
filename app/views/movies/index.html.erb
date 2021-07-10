@@ -5,3 +5,12 @@
   <%= f.text_field :title %>
   <%= f.submit 'Search' %>
 <% end %>
+
+<table>
+  <% @movies.each do |result| %>
+    <tr>
+      <td><%= result[:title] %></td>
+      <td>Vote Average: <%= result[:vote_average] %></td>
+    </tr>
+  <% end %>
+</table>

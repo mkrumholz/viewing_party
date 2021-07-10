@@ -17,7 +17,7 @@ class FriendshipsController < ApplicationController
     elsif friend.id == current_user.id
       flash[:error] = "Error: This is just sad. You can\'t add yourself as a friend."
     elsif current_user.friends.include?(friend)
-      flash[:error] = "Error: You are already friends with this user."
+      flash[:error] = 'Error: You are already friends with this user.'
     else
       flash[:error] = 'Friendship not successfully created.'
     end

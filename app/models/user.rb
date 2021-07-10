@@ -7,4 +7,8 @@ class User < ApplicationRecord
   validates :password, presence: { require: true }
 
   has_secure_password
+
+  def add_friend(friend)
+    friends << friend unless friend == self || friends.include?(friend)
+  end
 end

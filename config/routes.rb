@@ -3,24 +3,18 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   get '/register', to: 'users#new'
-
+  get '/discover', to: 'users#show'
   resources :users, only: :create
-  resources :friendships, only: [:create]
+
+  resources :friendships, only: :create
   resources :movies, only: :index
 
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
-
   delete '/logout', to: 'sessions#destroy'
 
   get '/dashboard', to: 'dashboard#show'
 
-  get '/discover', to: 'discover#index'
-
   get '/search', to: 'movies#search'
-
-  # namespace :discover do
-  #   resources :movies,
-  # end
 end

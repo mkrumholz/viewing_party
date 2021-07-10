@@ -25,6 +25,11 @@ class MoviesController < ApplicationController
   end
 
   def show
+    response = Faraday.get("https://api.themoviedb.org/3/movie/#{params[:id]}") do |req|
+      req.params['api_key'] = ENV['MOVIE_DB_KEY']
+      req.params['language'] = 'en'
+    end
+    @movie = JSON.parse(response.body, symbolize_names: true)
   end
 
   def search

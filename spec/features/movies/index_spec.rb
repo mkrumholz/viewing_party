@@ -44,6 +44,12 @@ RSpec.describe 'Movies index' do
       expect(page).to have_content "The Philadelphia Story" # 40th result
       expect(page).not_to have_content "The Pixar Story" # 41st result
     end
+
+    it 'links to each movie show page' do
+      click_on 'Toy Story'
+
+      expect(current_path).to eq movie_path(862)
+    end
   end
 
   describe 'top 40 movies' do
@@ -91,6 +97,12 @@ RSpec.describe 'Movies index' do
       click_on 'Discover Top 40 Movies'
 
       expect(current_path).to eq('/movies')
+    end
+
+    it 'links to each movie show page' do
+      click_on 'The Boss Baby: Family Business'
+
+      expect(current_path).to eq movie_path(459151)
     end
   end
 end

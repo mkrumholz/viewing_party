@@ -43,5 +43,7 @@ RSpec.describe 'movie show page' do
     expect(page).to have_content "A stunning feature film entrance from Pixar! <em>'Toy Story'</em> is a true delight, from the first second to the last.\r \r The CGI animation is excellent. All the toys look brilliant, as does the world itself - I love the feel of it. The music is very good, Randy Newman does a nice job - \"You've Got a Friend in Me\" is a cracker.\r \r Tom Hanks leads a strong cast. Hanks plays Woody, to fantastic effect. He is the best part of this film. Tim Allen is great, too, as Buzz Lightyear. Don Rickles (Mr. Potato Head), Wallace Shawn (Rex) and John Ratzenberger (Hamm) also bring fun.\r \r Everything else is just as terrific: the humour, the pacing, the plot - I enjoy it all. There are probably some flaws in parts, namely Buzz's supposed unawareness, but nothing impacts the viewing experience. Go watch!"
   end
 
-  it 'has a link to create a viewing party' 
+  it 'has a link to create a viewing party' do
+    expect(page).to have_link "Create Viewing Party for Movie"
+  end
 end

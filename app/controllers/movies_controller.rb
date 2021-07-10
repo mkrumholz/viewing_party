@@ -2,18 +2,18 @@ class MoviesController < ApplicationController
   def index
     if params[:results]
       @movies = params[:results]
-    else 
+    else
       response_1 = Faraday.get('https://api.themoviedb.org/3/discover/movie') do |req|
         req.params['api_key'] = ENV['MOVIE_DB_KEY']
-        req.params['sort_by'] = "popularity.desc"
+        req.params['sort_by'] = 'popularity.desc'
         req.params['include_adult'] = 'false'
       end
       json_1 = JSON.parse(response_1.body, symbolize_names: true)
       search_results_page_1 = json_1[:results]
-  
+
       response_2 = Faraday.get('https://api.themoviedb.org/3/discover/movie') do |req|
         req.params['api_key'] = ENV['MOVIE_DB_KEY']
-        req.params['sort_by'] = "popularity.desc"
+        req.params['sort_by'] = 'popularity.desc'
         req.params['include_adult'] = 'false'
         req.params['page'] = 2
       end

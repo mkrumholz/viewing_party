@@ -29,7 +29,9 @@ class MoviesController < ApplicationController
       req.params['api_key'] = ENV['MOVIE_DB_KEY']
       req.params['language'] = 'en'
     end
-    @movie = JSON.parse(response.body, symbolize_names: true)
+    # @movie = JSON.parse(response.body, symbolize_names: true)
+    movie_details = JSON.parse(response.body, symbolize_names: true)
+    @movie = Movie.new(movie_details)
   end
 
   def search

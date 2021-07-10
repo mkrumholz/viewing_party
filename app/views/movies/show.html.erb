@@ -1,0 +1,24 @@
+<h1><%= @movie.title %></h1>
+<aside><%= link_to "Create Viewing Party for Movie" %></aside>
+<table>
+  <tr>
+    <td>Vote average: <%= @movie.vote_average %></td>
+    <td>Runtime: <%= "#{@movie.runtime / 60} hr #{@movie.runtime % 60} min" %></td>
+    <td>Genre(s): <%= @movie.genres.map {|genre| genre[:name]}.join(', ') %></td>
+  </tr>
+</table>
+<hr>
+<h3>Summary</h3>
+<p><%= @movie.summary %></p>
+<h3>Cast</h3>
+<p>
+  <%= @movie.cast_members.map {|castmember| castmember[:name]}.join(', ') %>
+</p>
+<hr>
+<h3><%= "#{@movie.reviews.count} Reviews" %></h3>
+<p>
+  <% @movie.reviews.each do |review| %>
+    <h4>Author: <%= review[:author] %></h4>
+    <p><%= review[:content] %></p>
+  <% end %>
+</p>

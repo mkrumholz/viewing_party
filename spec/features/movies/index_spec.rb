@@ -44,6 +44,22 @@ RSpec.describe 'Movies index' do
       expect(page).to have_content "The Philadelphia Story" # 40th result
       expect(page).not_to have_content "The Pixar Story" # 41st result
     end
+
+    it 'links to each movie show page' do
+      response_body = File.read('./spec/fixtures/toy_story.json')
+      stub_request(:get, "https://api.themoviedb.org/3/movie/862?api_key=#{ENV['MOVIE_DB_KEY']}&language=en")
+          .with(
+            headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Faraday v1.4.1'
+            })
+          .to_return(status: 200, body: response_body, headers: {})
+
+      click_on 'Toy Story'
+
+      expect(current_path).to eq movie_path(862)
+    end
   end
 
   describe 'top 40 movies' do
@@ -91,6 +107,24 @@ RSpec.describe 'Movies index' do
       click_on 'Discover Top 40 Movies'
 
       expect(current_path).to eq('/movies')
+    end
+
+    it 'links to each movie show page' do
+      response_body = File.read('./spec/fixtures/toy_story.json')
+      stub_request(:get, "https://api.themoviedb.org/3/movie/459151?api_key=#{ENV['MOVIE_DB_KEY']}&language=en")
+          .with(
+            headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Faraday v1.4.1'
+            })
+          .to_return(status: 200, body: response_body, headers: {})
+
+      visit '/movies'
+
+      click_on 'The Boss Baby: Family Business'
+
+      expect(current_path).to eq movie_path(459151)
     end
   end
 end

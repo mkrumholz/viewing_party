@@ -24,6 +24,10 @@ class MoviesController < ApplicationController
     end
   end
 
+  def show
+    @movie = MovieDbService.details(params[:id])
+  end
+
   def search
     response1 = Faraday.get('https://api.themoviedb.org/3/search/movie') do |req|
       req.params['api_key'] = ENV['MOVIE_DB_KEY']

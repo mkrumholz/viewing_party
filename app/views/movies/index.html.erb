@@ -1,7 +1,13 @@
-<h1>Search Results</h1>
+<%= button_to "Discover Top 40 Movies", movies_path, method: :get, local: true %>
+
+<%= form_with url: search_path, method: :get, local: true do |f| %>
+  <%= f.label 'Search by title' %>
+  <%= f.text_field :title %>
+  <%= f.submit 'Search' %>
+<% end %>
 
 <table>
-  <% @search_results.each do |result| %>
+  <% @movies.each do |result| %>
     <tr>
       <td><%= result[:title] %></td>
       <td>Vote Average: <%= result[:vote_average] %></td>

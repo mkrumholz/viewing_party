@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :users, only: :create
 
   resources :friendships, only: :create
-  resources :movies, only: :index
+  resources :movies, only: [:index, :show]
 
 
   get '/login', to: 'sessions#new'

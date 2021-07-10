@@ -100,6 +100,8 @@ RSpec.describe 'Movies index' do
     end
 
     it 'links to each movie show page' do
+      visit '/movies'
+      
       click_on 'The Boss Baby: Family Business'
 
       expect(current_path).to eq movie_path(459151)

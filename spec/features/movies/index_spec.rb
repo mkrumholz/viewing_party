@@ -47,7 +47,7 @@ RSpec.describe 'Movies index' do
 
     it 'links to each movie show page' do
       response_body = File.read('./spec/fixtures/toy_story.json')
-      stub_request(:get, "https://api.themoviedb.org/3/movie/862?api_key=#{ENV['MOVIE_DB_KEY']}&language=en")
+      stub_request(:get, "https://api.themoviedb.org/3/movie/862?api_key=#{ENV['MOVIE_DB_KEY']}&language=en&append_to_response=credits,reviews")
           .with(
             headers: {
             'Accept'=>'*/*',
@@ -111,7 +111,7 @@ RSpec.describe 'Movies index' do
 
     it 'links to each movie show page' do
       response_body = File.read('./spec/fixtures/toy_story.json')
-      stub_request(:get, "https://api.themoviedb.org/3/movie/459151?api_key=#{ENV['MOVIE_DB_KEY']}&language=en")
+      stub_request(:get, "https://api.themoviedb.org/3/movie/459151?api_key=#{ENV['MOVIE_DB_KEY']}&language=en&append_to_response=credits,reviews")
           .with(
             headers: {
             'Accept'=>'*/*',

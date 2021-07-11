@@ -6,7 +6,7 @@ RSpec.describe 'movie show page' do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     response_body = File.read('./spec/fixtures/toy_story.json')
-    stub_request(:get, "https://api.themoviedb.org/3/movie/862?api_key=#{ENV['MOVIE_DB_KEY']}&language=en")
+    stub_request(:get, "https://api.themoviedb.org/3/movie/862?api_key=#{ENV['MOVIE_DB_KEY']}&language=en&append_to_response=credits,reviews")
         .with(
           headers: {
           'Accept'=>'*/*',

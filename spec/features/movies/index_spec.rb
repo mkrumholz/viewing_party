@@ -47,7 +47,7 @@ RSpec.describe 'Movies index' do
 
     it 'links to each movie show page' do
       response_body = File.read('./spec/fixtures/toy_story.json')
-      stub_request(:get, "https://api.themoviedb.org/3/movie/862?api_key=#{ENV['MOVIE_DB_KEY']}&language=en")
+      stub_request(:get, "https://api.themoviedb.org/3/movie/862?api_key=#{ENV['MOVIE_DB_KEY']}&language=en&append_to_response=credits,reviews")
           .with(
             headers: {
             'Accept'=>'*/*',
@@ -76,7 +76,7 @@ RSpec.describe 'Movies index' do
             'User-Agent'=>'Faraday v1.4.1'
             })
           .to_return(status: 200, body: response_body_1, headers: {})
-      
+
       response_body_2 = File.read('./spec/fixtures/top_40_2.json')
       stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&sort_by=popularity.desc&page=2")
           .with(
@@ -91,7 +91,7 @@ RSpec.describe 'Movies index' do
     it 'can display the top 40 movies' do
       visit '/discover'
       click_on 'Discover Top 40 Movies'
-      
+
       expect(current_path).to eq movies_path
       expect(page).to have_content "The Boss Baby: Family Business"
       expect(page).to have_content "Vote Average: 8"
@@ -111,7 +111,7 @@ RSpec.describe 'Movies index' do
 
     it 'links to each movie show page' do
       response_body = File.read('./spec/fixtures/toy_story.json')
-      stub_request(:get, "https://api.themoviedb.org/3/movie/459151?api_key=#{ENV['MOVIE_DB_KEY']}&language=en")
+      stub_request(:get, "https://api.themoviedb.org/3/movie/459151?api_key=#{ENV['MOVIE_DB_KEY']}&language=en&append_to_response=credits,reviews")
           .with(
             headers: {
             'Accept'=>'*/*',

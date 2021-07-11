@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :friendships, only: :create
   resources :movies, only: [:index, :show]
+  resources :viewing_party, only: [:create, :new]
 
 
   get '/login', to: 'sessions#new'

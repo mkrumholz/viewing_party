@@ -5,7 +5,7 @@ RSpec.describe MovieDbService do
     it 'queries movie details on MovieDB' do
       movie_id = 862
       response_body = File.read('./spec/fixtures/toy_story.json')
-      stub_request(:get, "https://api.themoviedb.org/3/movie/#{movie_id}?api_key=#{ENV['MOVIE_DB_KEY']}&language=en")
+      stub_request(:get, "https://api.themoviedb.org/3/movie/#{movie_id}?api_key=#{ENV['MOVIE_DB_KEY']}&language=en&append_to_response=credits,reviews")
           .with(
             headers: {
             'Accept'=>'*/*',

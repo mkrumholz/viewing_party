@@ -1,9 +1,5 @@
-class DashboardController < ApplicationController
+class DashboardController < BaseController
   def show
-    if current_user && User.find(current_user.id)
-      @user = User.find(current_user.id)
-    else
-      redirect_to root_path
-    end
+    @user = User.find(current_user.id)
   end
 end

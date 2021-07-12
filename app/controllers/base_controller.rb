@@ -4,7 +4,9 @@ class BaseController < ApplicationController
   private 
 
   def authorize_user
-    redirect_to root_path unless current_user
-    flash[:error] = "Error: Please log in to view this content."
+    unless current_user
+      redirect_to root_path 
+      flash[:error] = "Error: Please log in to view this content."
+    end
   end
 end

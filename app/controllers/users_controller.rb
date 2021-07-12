@@ -4,6 +4,7 @@ class UsersController < ApplicationController
       @user = User.find(current_user.id)
     else
       redirect_to root_path
+      flash[:error] = "Error: Please log in to view this content."
     end
   end
 

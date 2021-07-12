@@ -5,7 +5,7 @@ class MovieDbService
       req.params['language'] = 'en'
       req.params['append_to_response'] = 'credits,reviews'
     end
-    Movie.new(parse_json(response))
+    parse_json(response)
   end
 
   def self.top_40
@@ -20,7 +20,7 @@ class MovieDbService
       req.params['include_adult'] = 'false'
       req.params['page'] = 2
     end
-    parse_json(response1)[:results] + parse_json(response2)[:results]
+    results = parse_json(response1)[:results] + parse_json(response2)[:results]
   end
 
   def self.search_results(title)

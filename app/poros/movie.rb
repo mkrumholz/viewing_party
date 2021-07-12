@@ -1,5 +1,5 @@
 class Movie
-  attr_reader :title, :vote_average, :runtime, :genres, :summary, :reviews
+  attr_reader :title, :vote_average, :runtime, :genres, :summary
 
   def initialize(movie_details)
     @title = movie_details[:title]
@@ -7,11 +7,15 @@ class Movie
     @runtime = movie_details[:runtime]
     @genres = movie_details[:genres]
     @summary = movie_details[:overview]
-    @cast = movie_details[:credits][:cast]
-    @reviews = movie_details[:reviews][:results]
+    @credits = movie_details[:credits]
+    @reviews = movie_details[:reviews]
   end
 
   def cast_members
-    @cast.first(10)
+    @credits[:cast].first(10)
+  end
+
+  def reviews
+    @reviews[:results]
   end
 end

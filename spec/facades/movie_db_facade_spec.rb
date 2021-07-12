@@ -1,0 +1,82 @@
+require 'rails_helper'
+
+RSpec.describe MovieDbFacade do
+  describe '.details' do
+    it 'queries movie details on MovieDB' do
+      movie_id = 862
+      response_body = File.read('./spec/fixtures/toy_story.json')
+      stub_request(:get, "https://api.themoviedb.org/3/movie/#{movie_id}?api_key=#{ENV['MOVIE_DB_KEY']}&language=en&append_to_response=credits,reviews")
+          .with(
+            headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Faraday v1.4.1'
+            })
+          .to_return(status: 200, body: response_body, headers: {})
+
+      response = MovieDbFacade.details(movie_id)
+
+      expect(response).to be_a Movie
+      expect(response.title).to eq 'Toy Story'
+    end
+  end
+
+  describe '.top_40' do
+    it 'queries a list of the top 40 movies by popularity' do
+      response_body_1 = File.read('./spec/fixtures/top_40_1.json')
+      stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&sort_by=popularity.desc")
+          .with(
+            headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Faraday v1.4.1'
+            })
+          .to_return(status: 200, body: response_body_1, headers: {})
+      
+      response_body_2 = File.read('./spec/fixtures/top_40_2.json')
+      stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&sort_by=popularity.desc&page=2")
+          .with(
+            headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Faraday v1.4.1'
+            })
+          .to_return(status: 200, body: response_body_2, headers: {})
+
+      expect(MovieDbService.top_40).to be_a Array
+      expect(MovieDbService.top_40.first).to be_a Hash
+      expect(MovieDbService.top_40.first[:title]).to eq 'Luca'        
+      expect(MovieDbService.top_40.last[:title]).to eq 'Xtreme'        
+    end
+  end
+
+  describe 'search_results' do
+    it 'queries a list of movies based on a title search' do
+      response_body_1 = File.read('./spec/fixtures/search_results_1.json')
+      stub_request(:get, "https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&query=Story")
+          .with(
+            headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Faraday v1.4.1'
+            })
+          .to_return(status: 200, body: response_body_1, headers: {})
+
+      response_body_2 = File.read('./spec/fixtures/search_results_2.json')
+      stub_request(:get, "https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&query=Story&page=2")
+          .with(
+            headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Faraday v1.4.1'
+            })
+          .to_return(status: 200, body: response_body_2, headers: {})
+
+      response = MovieDbService.search_results('Story')
+
+      expect(response).to be_a Array
+      expect(response.first).to be_a Hash       
+      expect(response.last[:title]).to eq 'The Philadelphia Story'
+    end
+  end
+end

@@ -8,7 +8,7 @@ class MoviesController < BaseController
   end
 
   def show
-    @movie = MovieDbService.details(params[:id])
+    @movie = MovieDbFacade.details(params[:id])
   end
 
   def search

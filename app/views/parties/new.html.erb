@@ -1,10 +1,10 @@
 <h1>Viewing Party Details</h1>
-<%= form_with model: @viewing_party, local: true do |f| %>
+<%= form_with model: @party, local: true do |f| %>
   <%= f.label :title, "Movie Title" %><br><br>
-  <%= @movie[:title] %><br><br>
+  <%= f.text_field :duration, value: @title, :disabled => true %><br><br>
 
   <%= f.label :duration, "Duration of Party(min)" %><br>
-  <%= f.text_field :duration, placeholder: @movie[:duration], min: @movie[:duration] %><br><br>
+  <%= f.text_field :duration, placeholder: @duration, min: @duration %><br><br>
 
   <%= f.label :day, "Day" %><br>
   <%= f.date_field :day %><br><br>

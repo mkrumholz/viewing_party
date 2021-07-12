@@ -28,7 +28,7 @@ RSpec.describe 'New Viewing Party' do
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
 
-    expect(current_path).to eq new_viewing_party_path
+    expect(current_path).to eq new_party_path
 
     duration = '81'
     day = '7/14/21'
@@ -38,6 +38,7 @@ RSpec.describe 'New Viewing Party' do
     check(@user3.username)
     check(@user4.username)
     uncheck(@user3.username)
+    save_and_open_page
     click_on "Create Party"
     expect(current_path).to eq dashboard_path
   end
@@ -48,7 +49,7 @@ RSpec.describe 'New Viewing Party' do
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
 
-    expect(current_path).to eq new_viewing_party_path
+    expect(current_path).to eq new_party_path
 
     duration = '81'
     day = '7/14/21'
@@ -71,7 +72,7 @@ RSpec.describe 'New Viewing Party' do
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
 
-    expect(current_path).to eq new_viewing_party_path
+    expect(current_path).to eq new_party_path
 
     duration = '60'
     day = '7/14/21'
@@ -79,7 +80,7 @@ RSpec.describe 'New Viewing Party' do
 
     check(@user2.username)
     click_on "Create Party"
-    expect(current_path).to eq new_viewing_party_path
+    expect(current_path).to eq new_party_path
     expect(page).to have_content("Error: Party duration must be longer.")
   end
 end

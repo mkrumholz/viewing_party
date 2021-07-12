@@ -1,10 +1,10 @@
 <h1>Viewing Party Details</h1>
 <%= form_with model: @viewing_party, local: true do |f| %>
-  <%= f.label :title, "Movie Title" %><br>
-  <%= f.text_field :title %><br><br>
+  <%= f.label :title, "Movie Title" %><br><br>
+  <%= @movie[:title] %><br><br>
 
   <%= f.label :duration, "Duration of Party(min)" %><br>
-  <%= f.text_field :duration %><br><br>
+  <%= f.text_field :duration, placeholder: @movie[:duration], min: @movie[:duration] %><br><br>
 
   <%= f.label :day, "Day" %><br>
   <%= f.date_field :day %><br><br>
@@ -12,14 +12,15 @@
   <%= f.label :start_time, "Start Time" %><br>
   <%= f.time_field :start_time %><br><br>
 
-  <%= f.label :include, "Include" %><br>
-  <% if current_user.friends == nil %>
-    <p> You have no friends to watch with </p>
-  <% else %>
-    <% current_user.friends.all.each do |friend| %>
-      <%= f.check_box "#{friend.username}" %><br>
+  <%= f.label :include, "Include" %><br><br>
+  <% if current_user.friends.present? %>
+    <% current_user.friends.each do |friend| %>
+      <%= f.check_box friend.username %>
+      <%= f.label friend.username %><br>
     <% end %>
-  <% end %><br><br>
+  <% else %>
+    <p> You currently have no friends to watch with </p>
+  <% end %><br>
 
   <%= f.submit 'Create Party' %><br>
 <% end %>

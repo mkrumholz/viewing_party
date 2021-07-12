@@ -8,7 +8,8 @@ Rails.application.routes.draw do
 
   resources :friendships, only: :create
   resources :movies, only: [:index, :show]
-  resources :viewing_party, only: [:create, :new]
+  resources :viewing_party, only: [:create, :new, :post]
+  post '/viewing_party/new', to: 'viewing_party#create'
 
 
   get '/login', to: 'sessions#new'

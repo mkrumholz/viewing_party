@@ -2,12 +2,6 @@ require 'rails_helper'
 RSpec.describe 'New Viewing Party' do
   before :each do
     @user = User.create(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @friendship1 = Friendship.create(user_id: @user.id, friend_id: @user2.id)
-    @friendship2 = Friendship.create(user_id: @user.id, friend_id: @user3.id)
-    @friendship3 = Friendship.create(user_id: @user.id, friend_id: @user4.id)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
     response_body = File.read('./spec/fixtures/toy_story.json')
@@ -24,6 +18,13 @@ RSpec.describe 'New Viewing Party' do
   end
 
   it "Creates a new viewing party" do
+    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    @user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
+    @user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
+    @friendship1 = Friendship.create(user_id: @user.id, friend_id: @user2.id)
+    @friendship2 = Friendship.create(user_id: @user.id, friend_id: @user3.id)
+    @friendship3 = Friendship.create(user_id: @user.id, friend_id: @user4.id)
+
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
 
@@ -32,15 +33,53 @@ RSpec.describe 'New Viewing Party' do
     duration = '81'
     day = '7/14/21'
     start_time = '1:00'
-    save_and_open_page
 
-    expect(page).to have_content(@user2.username)
-    expect(page).to have_content(@user3.username)
-    expect(page).to have_content(@user4.username)
     check(@user2.username)
     check(@user3.username)
     check(@user4.username)
     uncheck(@user3.username)
     click_on "Create Party"
+    expect(current_path).to eq dashboard_path
+  end
+
+  it "displays a message if no friends to add" do
+    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+
+    expect(page).to have_content 'Toy Story'
+    click_on 'Create Viewing Party for Movie'
+
+    expect(current_path).to eq new_viewing_party_path
+
+    duration = '81'
+    day = '7/14/21'
+    start_time = '1:00'
+
+    expect(page).not_to have_content(@user2.username)
+    expect(page).to have_content("You currently have no friends to watch with")
+    click_on "Create Party"
+    expect(current_path).to eq dashboard_path
+  end
+
+  it "does not create if party duration is less than movie duration" do
+    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    @user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
+    @user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
+    @friendship1 = Friendship.create(user_id: @user.id, friend_id: @user2.id)
+    @friendship2 = Friendship.create(user_id: @user.id, friend_id: @user3.id)
+    @friendship3 = Friendship.create(user_id: @user.id, friend_id: @user4.id)
+
+    expect(page).to have_content 'Toy Story'
+    click_on 'Create Viewing Party for Movie'
+
+    expect(current_path).to eq new_viewing_party_path
+
+    duration = '60'
+    day = '7/14/21'
+    start_time = '1:00'
+
+    check(@user2.username)
+    click_on "Create Party"
+    expect(current_path).to eq new_viewing_party_path
+    expect(page).to have_content("Error: Party duration must be longer.")
   end
 end

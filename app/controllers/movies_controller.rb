@@ -1,4 +1,4 @@
-class MoviesController < AuthorizationController
+class MoviesController < BaseController
   def index
     if params[:results]
       @movies = params[:results]

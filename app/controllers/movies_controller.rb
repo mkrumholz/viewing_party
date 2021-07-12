@@ -3,12 +3,12 @@ class MoviesController < BaseController
     if params[:results]
       @movies = params[:results]
     else
-      @movies = MovieDbService.top_40
+      @movies = MovieDbFacade.top_40_movies
     end
   end
 
   def show
-    @movie = MovieDbFacade.details(params[:id])
+    @movie = MovieDbFacade.movie_details(params[:id])
   end
 
   def search

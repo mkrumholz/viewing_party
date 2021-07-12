@@ -2,12 +2,11 @@ class PartiesController < ApplicationController
   def new
     @title = params[:title]
     @duration = params[:duration]
-    @viewing_party = Party.new
-    require "pry"; binding.pry
+    @party = Party.new
   end
 
   def create
-    new_party = Party.new(party_params)
+    new_party = current_user.parties.new(party_params)
     if new_party.save
       flash[:success] = "New Viewing Party Created"
       redirect_to dashboard_path
@@ -19,6 +18,6 @@ class PartiesController < ApplicationController
 
   private
   def party_params
-    params.permit(:id, :movie_title, :duration, :date, :start_time)
+    params.require(:party).permit(:movie_title, :duration, :date, :start_time)
   end
 end

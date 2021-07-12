@@ -26,19 +26,23 @@ RSpec.describe 'New Viewing Party' do
     @friendship3 = Friendship.create(user_id: @user.id, friend_id: @user4.id)
 
     expect(page).to have_content 'Toy Story'
+
     click_on 'Create Viewing Party for Movie'
 
     expect(current_path).to eq new_party_path
 
     duration = '81'
-    day = '7/14/21'
-    start_time = '1:00'
+    date = Date.parse('2021-07-14')
+    start_time = Time.parse('1:00')
 
-    check(@user2.username)
-    check(@user3.username)
-    check(@user4.username)
-    uncheck(@user3.username)
-    save_and_open_page
+    fill_in 'party[duration]', with: duration
+    fill_in 'party[date]', with: date
+    fill_in 'party[start_time]', with: start_time
+
+    check('party[test_user2]')
+    check('party[test_user3]')
+    check('party[test_user4]')
+    uncheck('party[test_user4]')
     click_on "Create Party"
     expect(current_path).to eq dashboard_path
   end
@@ -50,12 +54,11 @@ RSpec.describe 'New Viewing Party' do
     click_on 'Create Viewing Party for Movie'
 
     expect(current_path).to eq new_party_path
-
     duration = '81'
     day = '7/14/21'
     start_time = '1:00'
 
-    expect(page).not_to have_content(@user2.username)
+    expect(page).not_to have_content('party[test_user2]')
     expect(page).to have_content("You currently have no friends to watch with")
     click_on "Create Party"
     expect(current_path).to eq dashboard_path
@@ -74,11 +77,11 @@ RSpec.describe 'New Viewing Party' do
 
     expect(current_path).to eq new_party_path
 
-    duration = '60'
+    duration = '60'#actually 81
     day = '7/14/21'
     start_time = '1:00'
 
-    check(@user2.username)
+    check('party[test_user2]')
     click_on "Create Party"
     expect(current_path).to eq new_party_path
     expect(page).to have_content("Error: Party duration must be longer.")

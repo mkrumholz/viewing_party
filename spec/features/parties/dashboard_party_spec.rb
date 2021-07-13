@@ -12,8 +12,8 @@ RSpec.describe 'Dashboard parties' do
     @friendship3 = Friendship.create(user_id: @user.id, friend_id: @user4.id)
 
     @party = @user.parties.create(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600")
-    @party.guests.create(user_id: @user2.id)
-    @party.guests.create(user_id: @user3.id)
+    @party.invitations.create(user_id: @user2.id)
+    @party.invitations.create(user_id: @user3.id)
     visit dashboard_path
 
     within '.hosting' do

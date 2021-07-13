@@ -15,3 +15,12 @@
   <p>You currently have no friends</p>
 <% end %><br>
 <%= link_to "Discover Movies", discover_path %>
+
+<section class = "hosting">
+  <h3>Parties that I'm Hosting!</h3>
+  <% @user.parties.each do |party| %>
+    <%= party.movie_title %>
+    <%= party.date %>
+    <%= party.start_time %>
+  <% end %>
+</section>

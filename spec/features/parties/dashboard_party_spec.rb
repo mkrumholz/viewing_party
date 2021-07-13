@@ -14,6 +14,17 @@ RSpec.describe 'Dashboard parties' do
     @party = @user.parties.create(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600")
     @party.invitations.create(user_id: @user2.id)
     @party.invitations.create(user_id: @user3.id)
+
+    response_body = File.read('./spec/fixtures/toy_story.json')
+    stub_request(:get, "https://api.themoviedb.org/3/movie/862?api_key=#{ENV['MOVIE_DB_KEY']}&language=en&append_to_response=credits,reviews")
+        .with(
+          headers: {
+          'Accept'=>'*/*',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'User-Agent'=>'Faraday v1.4.1'
+          })
+        .to_return(status: 200, body: response_body, headers: {})
+
     visit dashboard_path
 
     within '.hosting' do
@@ -45,6 +56,17 @@ RSpec.describe 'Dashboard parties' do
     @party = @user2.parties.create!(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600")
     @party.invitations.create(user_id: @user.id)#user2 creates party and invites user
     @party.invitations.create(user_id: @user3.id)
+
+    response_body = File.read('./spec/fixtures/toy_story.json')
+    stub_request(:get, "https://api.themoviedb.org/3/movie/862?api_key=#{ENV['MOVIE_DB_KEY']}&language=en&append_to_response=credits,reviews")
+        .with(
+          headers: {
+          'Accept'=>'*/*',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'User-Agent'=>'Faraday v1.4.1'
+          })
+        .to_return(status: 200, body: response_body, headers: {})
+
     visit dashboard_path
     within '.invited' do
       expect(page).to have_content("Parties that I'm Invited To!")

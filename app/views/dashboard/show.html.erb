@@ -20,7 +20,8 @@
   <h3>Parties that I'm Hosting!</h3>
   <% if @user.parties.present? %>
     <% @user.parties.each do |party| %>
-    <%= link_to "#{party.movie_title}", movie_path %>
+    <%  %>
+    <%= link_to "#{party.movie_title}", movie_path(party.external_movie_id)%>
       Date: <%= party.date %><br>
       Time: <%= party.start_time %><br>
       Invited:<br>
@@ -41,7 +42,7 @@
   <h3>Parties that I'm Invited To!</h3>
   <% if @user.invitations.present? %>
     <% @user.invitations.each do |invitation| %>
-    <%= link_to "#{invitation.party.movie_title}", movie_path %>
+    <%= link_to "#{invitation.party.movie_title}", movie_path(invitation.party.external_movie_id) %>
       Date: <%= invitation.party.date %><br>
       Time: <%= invitation.party.start_time %><br>
       Invited:<br>

@@ -88,12 +88,18 @@ RSpec.describe MovieDbService do
             })
           .to_return(status: 200, body: response_body_2, headers: {})
 
-      response = MovieDbService.list_search_results('Story')
+      page_1_response = MovieDbService.list_search_results('Story', 1)
+      page_2_response = MovieDbService.list_search_results('Story', 2)
 
-      expect(response).to be_a Hash   
-      expect(response[:results]).to be_an Array   
-      expect(response[:results].first).to be_a Hash   
-      expect(response[:results].last[:title]).to eq 'The Philadelphia Story'
+      expect(page_1_response).to be_a Hash
+      expect(page_1_response[:results].first).to be_a Hash
+      expect(page_1_response[:results].count).to eq 20
+      expect(page_1_response[:results].first[:title]).to eq 'Toy Story'        
+
+      expect(page_2_response).to be_a Hash
+      expect(page_2_response[:results].first).to be_a Hash
+      expect(page_2_response[:results].count).to eq 20
+      expect(page_2_response[:results].last[:title]).to eq 'The Philadelphia Story'  
     end
   end
 end

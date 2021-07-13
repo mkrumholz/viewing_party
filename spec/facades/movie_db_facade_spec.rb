@@ -54,7 +54,7 @@ RSpec.describe MovieDbFacade do
   describe 'search_results' do
     it 'queries a list of movies based on a title search' do
       response_body_1 = File.read('./spec/fixtures/search_results_1.json')
-      stub_request(:get, "https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&query=Story")
+      stub_request(:get, "https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&query=Story&page=1")
           .with(
             headers: {
             'Accept'=>'*/*',
@@ -73,11 +73,12 @@ RSpec.describe MovieDbFacade do
             })
           .to_return(status: 200, body: response_body_2, headers: {})
 
-      response = MovieDbService.search_results('Story')
+      response = MovieDbFacade.search_results('Story')
 
       expect(response).to be_a Array
-      expect(response.first).to be_a Hash       
-      expect(response.last[:title]).to eq 'The Philadelphia Story'
+      expect(response.length).to be <= 40
+      expect(response.first).to be_a Movie       
+      expect(response.last.title).to eq 'The Philadelphia Story'
     end
   end
 end

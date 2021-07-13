@@ -44,7 +44,6 @@ RSpec.describe 'New Viewing Party' do
     check('test_user4')
     uncheck('test_user4')
     click_on "Create Party"
-    save_and_open_page
 
     expect(current_path).to eq dashboard_path
     within '.hosting' do
@@ -66,9 +65,10 @@ RSpec.describe 'New Viewing Party' do
     day = '7/14/21'
     start_time = '1:00'
 
-    expect(page).not_to have_content('test_user2')
     expect(page).to have_content("You currently have no friends to watch with")
+    expect(page).not_to have_content('test_user2')
     click_on "Create Party"
+    expect(page).to have_content("Error: Party must need friends.")
     expect(current_path).to eq new_party_path
   end
 

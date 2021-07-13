@@ -15,6 +15,7 @@
 
   <%= f.label :include, "Include" %><br><br>
   <%= hidden_field_tag :runtime, @duration %>
+  <%= hidden_field_tag :external_movie_id, @id %>
 
 
   <% if current_user.friends.present? %>

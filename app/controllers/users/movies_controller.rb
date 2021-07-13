@@ -1,10 +1,10 @@
 class Users::MoviesController < Users::BaseController
   def index
-    if params[:title]
-      @movies = MovieDbFacade.search_results(params[:title])
-    else
-      @movies = MovieDbFacade.top_40_movies
-    end
+    @movies = if params[:title]
+                MovieDbFacade.search_results(params[:title])
+              else
+                MovieDbFacade.top_40_movies
+              end
   end
 
   def show

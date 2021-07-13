@@ -1,4 +1,4 @@
-class MovieDbFacade 
+class MovieDbFacade
   def self.movie_details(movie_id)
     movie_details = MovieDbService.details(movie_id)
     Movie.new(movie_details)
@@ -10,8 +10,8 @@ class MovieDbFacade
 
   def self.top_rated_movies(pages)
     results = []
-    pages.times do |page| 
-      json = MovieDbService.list_by_popularity(page + 1) 
+    pages.times do |page|
+      json = MovieDbService.list_by_popularity(page + 1)
       results += json_to_movies(json)
     end
     results

@@ -1,4 +1,4 @@
-class FriendshipsController < ApplicationController
+class Users::FriendshipsController < Users::BaseController
   def create
     friend = User.find_by(email: params[:email])
     if friend.present?

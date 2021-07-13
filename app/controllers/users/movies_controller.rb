@@ -1,4 +1,4 @@
-class MoviesController < BaseController
+class Users::MoviesController < Users::BaseController
   def index
     if params[:title]
       @movies = MovieDbFacade.search_results(params[:title])

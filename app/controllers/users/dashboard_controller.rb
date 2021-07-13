@@ -1,4 +1,4 @@
-class DashboardController < BaseController
+class Users::DashboardController < Users::BaseController
   def show
     @user = User.find(current_user.id)
   end

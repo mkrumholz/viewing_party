@@ -32,8 +32,8 @@ Viewing party is an application for users to explore movies via The Movie Databa
 
 ### Tools and Dependencies
 
-#### G
-#### Testing
+#### Important Gems
+#### Running tests
 
 
 

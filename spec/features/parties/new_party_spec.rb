@@ -44,7 +44,12 @@ RSpec.describe 'New Viewing Party' do
     check('party[test_user4]')
     uncheck('party[test_user4]')
     click_on "Create Party"
+    
     expect(current_path).to eq dashboard_path
+    expect(current_path).to have_content('Toy Story')
+    expect(current_path).to have_content(@user2.username)
+    expect(current_path).to have_content(@user3.username)
+    expect(current_path).not_to have_content(@user4.username)
   end
 
   it "doesnt create party and displays a message if no friends to add" do

@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
   has_many :parties
+  has_many :invitations
 
   validates :username, uniqueness: true, presence: true
   validates :email, uniqueness: true, presence: true

@@ -5,7 +5,8 @@ RSpec.describe User do
     it { should have_many(:friendships).dependent(:destroy) }
     it { should have_many(:friends).through(:friendships) }
     it { should have_many(:parties)}
-    end
+    it { should have_many(:invitations)}
+  end
 
   describe 'validations' do
     it { should validate_presence_of(:username) }

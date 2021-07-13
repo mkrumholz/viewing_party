@@ -9,8 +9,8 @@
 <table>
   <% @movies.each do |result| %>
     <tr>
-      <td><%= link_to result[:title], movie_path(result[:id]) %></td>
-      <td>Vote Average: <%= result[:vote_average] %></td>
+      <td><%= link_to result.title, movie_path(result.id) %></td>
+      <td>Vote Average: <%= result.vote_average %></td>
     </tr>
   <% end %>
 </table>

@@ -68,7 +68,7 @@ RSpec.describe 'Movies index' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
       response_body_1 = File.read('./spec/fixtures/top_40_1.json')
-      stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&sort_by=popularity.desc")
+      stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&sort_by=popularity.desc&page=1")
           .with(
             headers: {
             'Accept'=>'*/*',
@@ -78,7 +78,7 @@ RSpec.describe 'Movies index' do
           .to_return(status: 200, body: response_body_1, headers: {})
       
       response_body_2 = File.read('./spec/fixtures/top_40_2.json')
-      stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&sort_by=popularity.desc&page=2")
+      stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&sort_by=popularity.desc&page=2")
           .with(
             headers: {
             'Accept'=>'*/*',

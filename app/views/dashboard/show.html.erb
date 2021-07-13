@@ -19,7 +19,7 @@
 <section class = "hosting">
   <h3>Parties that I'm Hosting!</h3>
   <% @user.parties.each do |party| %>
-    <%= party.movie_title %>
+    <%= party.movie_title %><br>
     <%= party.date %>
     <%= party.start_time %>
     <% party.invitations.each do |invitation| %>

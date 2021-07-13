@@ -8,6 +8,11 @@ class PartiesController < ApplicationController
   def create
     new_party = current_user.parties.new(party_params)
     if params[:party][:duration] >= params[:runtime] && new_party.save
+       if params[:party][:invitations].present?
+        params[:party][:invitations].each do |invitation|
+          party.invitation.create!(user_id: )
+        end
+       end
       flash[:success] = "New Viewing Party Created"
       redirect_to dashboard_path
     elsif params[:party][:duration] < params[:runtime]

@@ -14,10 +14,13 @@
   <%= f.time_field :start_time %><br><br>
 
   <%= f.label :include, "Include" %><br><br>
+  <%= hidden_field_tag :runtime, @duration %>
+
+
   <% if current_user.friends.present? %>
-    <% current_user.friends.each do |friend| %>
-      <%= f.check_box friend.username %>
-      <%= f.label friend.username %><br>
+    <%= f.collection_check_boxes(:invitations, current_user.friends, :friendships, :username) do |b| %>
+      <%= b.check_box %>
+      <%= b.label %><br>
     <% end %>
   <% else %>
     <p> You currently have no friends to watch with </p>

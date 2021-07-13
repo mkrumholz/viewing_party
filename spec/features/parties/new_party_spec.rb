@@ -38,18 +38,23 @@ RSpec.describe 'New Viewing Party' do
     fill_in 'party[duration]', with: duration
     fill_in 'party[date]', with: date
     fill_in 'party[start_time]', with: start_time
+    save_and_open_page
 
-    check('party[test_user2]')
-    check('party[test_user3]')
-    check('party[test_user4]')
-    uncheck('party[test_user4]')
+    # check('party[invitations][0]')
+    check('test_user2')
+    check('test_user3')
+    check('test_user4')
+    uncheck('test_user4')
+    # check('party[test_user3]')
+    # check('party[test_user4]')
+    # uncheck('party[test_user4]')
     click_on "Create Party"
-    
+
     expect(current_path).to eq dashboard_path
-    expect(current_path).to have_content('Toy Story')
-    expect(current_path).to have_content(@user2.username)
-    expect(current_path).to have_content(@user3.username)
-    expect(current_path).not_to have_content(@user4.username)
+    expect(page).to have_content('Toy Story')
+    expect(page).to have_content(@user2.username)
+    expect(page).to have_content(@user3.username)
+    expect(page).not_to have_content(@user4.username)
   end
 
   it "doesnt create party and displays a message if no friends to add" do

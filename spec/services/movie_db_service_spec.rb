@@ -32,7 +32,7 @@ RSpec.describe MovieDbService do
   describe '.list_by_popularity' do
     it 'queries a list of the top 40 movies by popularity' do
       response_body_1 = File.read('./spec/fixtures/top_40_1.json')
-      stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&sort_by=popularity.desc&page=1")
+      stub_request(:get, "https://api.themoviedb.org/3/movie/top_rated?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&page=1")
           .with(
             headers: {
             'Accept'=>'*/*',
@@ -42,7 +42,7 @@ RSpec.describe MovieDbService do
           .to_return(status: 200, body: response_body_1, headers: {})
       
       response_body_2 = File.read('./spec/fixtures/top_40_2.json')
-      stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&sort_by=popularity.desc&page=2")
+      stub_request(:get, "https://api.themoviedb.org/3/movie/top_rated?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&page=2")
           .with(
             headers: {
             'Accept'=>'*/*',
@@ -57,12 +57,12 @@ RSpec.describe MovieDbService do
       expect(page_1_response).to be_a Hash
       expect(page_1_response[:results].first).to be_a Hash
       expect(page_1_response[:results].count).to eq 20
-      expect(page_1_response[:results].first[:title]).to eq 'Luca'        
+      expect(page_1_response[:results].first[:title]).to eq 'Dilwale Dulhania Le Jayenge'        
 
       expect(page_2_response).to be_a Hash
       expect(page_2_response[:results].first).to be_a Hash
       expect(page_2_response[:results].count).to eq 20
-      expect(page_2_response[:results].last[:title]).to eq 'Xtreme'        
+      expect(page_2_response[:results].last[:title]).to eq 'A Silent Voice: The Movie'        
     end
   end
 

@@ -24,7 +24,7 @@ RSpec.describe MovieDbFacade do
   describe '.top_40_movies' do
     it 'queries a list of the top 40 movies by popularity' do
       response_body_1 = File.read('./spec/fixtures/top_40_1.json')
-      stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&sort_by=popularity.desc&page=1")
+      stub_request(:get, "https://api.themoviedb.org/3/movie/top_rated?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&page=1")
           .with(
             headers: {
             'Accept'=>'*/*',
@@ -34,7 +34,7 @@ RSpec.describe MovieDbFacade do
           .to_return(status: 200, body: response_body_1, headers: {})
       
       response_body_2 = File.read('./spec/fixtures/top_40_2.json')
-      stub_request(:get, "https://api.themoviedb.org/3/discover/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&sort_by=popularity.desc&page=2")
+      stub_request(:get, "https://api.themoviedb.org/3/movie/top_rated?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&page=2")
           .with(
             headers: {
             'Accept'=>'*/*',
@@ -46,8 +46,8 @@ RSpec.describe MovieDbFacade do
       expect(MovieDbFacade.top_40_movies).to be_a Array
       expect(MovieDbFacade.top_40_movies.length).to eq 40
       expect(MovieDbFacade.top_40_movies.first).to be_a Movie
-      expect(MovieDbFacade.top_40_movies.first.title).to eq 'Luca'        
-      expect(MovieDbFacade.top_40_movies.last.title).to eq 'Xtreme'        
+      expect(MovieDbFacade.top_40_movies.first.title).to eq 'Dilwale Dulhania Le Jayenge'        
+      expect(MovieDbFacade.top_40_movies.last.title).to eq 'A Silent Voice: The Movie'        
     end
   end
 

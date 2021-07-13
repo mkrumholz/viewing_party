@@ -5,7 +5,7 @@ class MovieDbService
   end
 
   def self.list_by_popularity(page)
-    response = conn.get("/3/discover/movie", { sort_by: 'popularity.desc', include_adult: false, page: page })
+    response = conn.get("/3/movie/top_rated", { include_adult: false, page: page })
     parse_json(response)
   end
 

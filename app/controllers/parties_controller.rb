@@ -8,7 +8,6 @@ class PartiesController < ApplicationController
 
   def create
     new_party = current_user.parties.new(party_params)
-    require "pry"; binding.pry
     if params[:party][:duration] >= params[:runtime] && new_party.save && params[:party][:invitations].present? && params[:external_movie_id].present?
        if params[:party][:invitations].any? {|invitation| invitation != ""}
         params[:party][:invitations].each do |invitation|

@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   # post '/parties/new', to: 'parties#create'
   # post '/dashboard', to: 'parties#create'
 
-
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'

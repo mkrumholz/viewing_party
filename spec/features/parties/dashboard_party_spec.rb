@@ -11,7 +11,7 @@ RSpec.describe 'Dashboard parties' do
     @friendship2 = Friendship.create(user_id: @user.id, friend_id: @user3.id)
     @friendship3 = Friendship.create(user_id: @user.id, friend_id: @user4.id)
 
-    @party = @user.parties.create(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600")
+    @party = @user.parties.create(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
     @party.invitations.create(user_id: @user2.id)
     @party.invitations.create(user_id: @user3.id)
 
@@ -53,7 +53,7 @@ RSpec.describe 'Dashboard parties' do
     @friendship5 = Friendship.create(user_id: @user2.id, friend_id: @user3.id)
     @friendship3 = Friendship.create(user_id: @user2.id, friend_id: @user4.id)
 
-    @party = @user2.parties.create!(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600")
+    @party = @user2.parties.create!(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
     @party.invitations.create(user_id: @user.id)#user2 creates party and invites user
     @party.invitations.create(user_id: @user3.id)
 

@@ -7,11 +7,14 @@ class PartiesController < ApplicationController
 
   def create
     new_party = current_user.parties.new(party_params)
-    if new_party.save
+    if params[:party][:duration] >= params[:runtime] && new_party.save
       flash[:success] = "New Viewing Party Created"
       redirect_to dashboard_path
+    elsif params[:party][:duration] < params[:runtime]
+      flash[:error] = "Error: Party duration must match or exceed movie runtime."
+      redirect_to new_party_path({title: params[:party][:movie_title], duration: params[:runtime]})
     else
-      flash[:error] = "Error: Party not created"
+      flash[:error] = "Error: Party not created."
       render :new
     end
   end

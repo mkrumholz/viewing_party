@@ -47,7 +47,7 @@ RSpec.describe 'New Viewing Party' do
     expect(current_path).to eq dashboard_path
   end
 
-  it "displays a message if no friends to add" do
+  it "doesnt create party and displays a message if no friends to add" do
     @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
 
     expect(page).to have_content 'Toy Story'
@@ -61,7 +61,7 @@ RSpec.describe 'New Viewing Party' do
     expect(page).not_to have_content('party[test_user2]')
     expect(page).to have_content("You currently have no friends to watch with")
     click_on "Create Party"
-    expect(current_path).to eq dashboard_path
+    expect(current_path).to eq new_party_path
   end
 
   it "does not create if party duration is less than movie duration" do
@@ -84,6 +84,6 @@ RSpec.describe 'New Viewing Party' do
     check('party[test_user2]')
     click_on "Create Party"
     expect(current_path).to eq new_party_path
-    expect(page).to have_content("Error: Party duration must be longer.")
+    expect(page).to have_content("Error: Party duration must match or exceed movie runtime.")
   end
 end

@@ -22,5 +22,8 @@
     <%= party.movie_title %>
     <%= party.date %>
     <%= party.start_time %>
+    <% party.invitations.each do |invitation| %>
+      <%= invitation.guest_name %>
+    <% end %>
   <% end %>
 </section>

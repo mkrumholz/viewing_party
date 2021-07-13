@@ -38,23 +38,21 @@ RSpec.describe 'New Viewing Party' do
     fill_in 'party[duration]', with: duration
     fill_in 'party[date]', with: date
     fill_in 'party[start_time]', with: start_time
-    save_and_open_page
 
-    # check('party[invitations][0]')
     check('test_user2')
     check('test_user3')
     check('test_user4')
     uncheck('test_user4')
-    # check('party[test_user3]')
-    # check('party[test_user4]')
-    # uncheck('party[test_user4]')
     click_on "Create Party"
+    save_and_open_page
 
     expect(current_path).to eq dashboard_path
-    expect(page).to have_content('Toy Story')
-    expect(page).to have_content(@user2.username)
-    expect(page).to have_content(@user3.username)
-    expect(page).not_to have_content(@user4.username)
+    within '.hosting' do
+      expect(page).to have_content('Toy Story')
+      expect(page).to have_content(@user2.username)
+      expect(page).to have_content(@user3.username)
+      expect(page).not_to have_content(@user4.username)
+    end
   end
 
   it "doesnt create party and displays a message if no friends to add" do
@@ -68,7 +66,7 @@ RSpec.describe 'New Viewing Party' do
     day = '7/14/21'
     start_time = '1:00'
 
-    expect(page).not_to have_content('party[test_user2]')
+    expect(page).not_to have_content('test_user2')
     expect(page).to have_content("You currently have no friends to watch with")
     click_on "Create Party"
     expect(current_path).to eq new_party_path
@@ -91,7 +89,7 @@ RSpec.describe 'New Viewing Party' do
     day = '7/14/21'
     start_time = '1:00'
 
-    check('party[test_user2]')
+    check('test_user2')
     click_on "Create Party"
     expect(current_path).to eq new_party_path
     expect(page).to have_content("Error: Party duration must match or exceed movie runtime.")

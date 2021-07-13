@@ -8,9 +8,9 @@ class PartiesController < ApplicationController
   def create
     new_party = current_user.parties.new(party_params)
     if params[:party][:duration] >= params[:runtime] && new_party.save
-       if params[:party][:invitations].present?
+       if params[:party][:invitations].any? {|invitation| invitation != ""}
         params[:party][:invitations].each do |invitation|
-          party.invitation.create!(user_id: )
+          new_party.invitations.create(user_id: invitation) if invitation != ""
         end
        end
       flash[:success] = "New Viewing Party Created"

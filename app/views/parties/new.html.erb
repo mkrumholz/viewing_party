@@ -18,7 +18,7 @@
 
 
   <% if current_user.friends.present? %>
-    <%= f.collection_check_boxes(:invitations, current_user.friends, :friendships, :username) do |b| %>
+    <%= f.collection_check_boxes(:invitations, current_user.friends, :id, :username) do |b| %>
       <%= b.check_box %>
       <%= b.label %><br>
     <% end %>

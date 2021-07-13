@@ -9,7 +9,7 @@ RSpec.describe 'Movies index' do
       visit '/discover'
 
       response_body_1 = File.read('./spec/fixtures/search_results_1.json')
-      stub_request(:get, "https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&query=Story")
+      stub_request(:get, "https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&query=Story&page=1")
           .with(
             headers: {
             'Accept'=>'*/*',

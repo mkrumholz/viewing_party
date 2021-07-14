@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'User dashboard' do
-  context 'user is logged in' do
+  context 'when user is logged in' do
     before :each do
       @user = User.create(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
@@ -89,6 +89,7 @@ RSpec.describe 'User dashboard' do
 
       expect(page).to have_content("Error: You are already friends with this user.")
     end
+
     it 'throws a generic error if friend is not saved' do
       user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
       allow_any_instance_of(User).to receive(:add_friend).and_return(false)
@@ -102,14 +103,14 @@ RSpec.describe 'User dashboard' do
     end
   end
 
-
-  context 'user is NOT logged in' do
-    it "does not display welcome message if user is not logged in" do
+  context 'when user is NOT logged in' do
+    it "redirects to the home screen and throws an error if user is not logged in" do
       user = User.create(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password')
 
       visit '/dashboard'
 
       expect(page).not_to have_content("Welcome, #{user.username}!")
+      expect(page).to have_content("Error: Please log in to view this content.")
       expect(current_path).to eq root_path
     end
   end

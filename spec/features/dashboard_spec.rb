@@ -89,6 +89,18 @@ RSpec.describe 'User dashboard' do
 
       expect(page).to have_content("Error: You are already friends with this user.")
     end
+
+    it 'throws a generic error if friend is not saved' do
+      user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+      allow_any_instance_of(User).to receive(:add_friend).and_return(false)
+
+      visit '/dashboard'
+
+      fill_in :email, with: 'user2@test.com'
+      click_on "Add Friend"
+
+      expect(page).to have_content("Friendship not successfully created.")
+    end
   end
 
   context 'when user is NOT logged in' do

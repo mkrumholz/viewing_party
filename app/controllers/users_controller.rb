@@ -1,10 +1,8 @@
-class UsersController < ApplicationController
+class UsersController < Users::BaseController
+  skip_before_action :authorize_user, only: %i[new create]
+
   def show
-    if current_user && User.find(current_user.id)
-      @user = User.find(current_user.id)
-    else
-      redirect_to root_path
-    end
+    @user = User.find(current_user.id)
   end
 
   def new
@@ -12,9 +10,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = user_params
-    user[:email] = user[:email].downcase
-    new_user = User.new(user)
+    user_params[:email] = user_params[:email].downcase
+    new_user = User.new(user_params)
     if new_user.save
       session[:user_id] = new_user.id
       flash[:success] = "Welcome, #{new_user.username}!"

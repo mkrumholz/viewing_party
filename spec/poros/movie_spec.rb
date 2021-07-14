@@ -8,6 +8,7 @@ RSpec.describe Movie do
   end
 
   it 'has basic details' do
+    expect(@movie.id).to eq 862
     expect(@movie.title).to eq 'Toy Story'
     expect(@movie.vote_average).to eq 7.9
     expect(@movie.runtime).to eq 81

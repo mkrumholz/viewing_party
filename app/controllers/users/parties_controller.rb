@@ -1,4 +1,4 @@
-class PartiesController < ApplicationController
+class Users::PartiesController < Users::BaseController
   def new
     @id = params[:external_movie_id]
     @title = params[:title]

@@ -4,12 +4,12 @@ Rails.application.routes.draw do
 
   resources :users, only: :create
   get '/register', to: 'users#new'
-  get '/discover', to: 'users#show'
+  get '/dashboard', to: 'users#show'
   
   scope module: :users do
     resources :friendships, only: :create
     resources :movies, only: [:index, :show]
-    get '/dashboard', to: 'dashboard#show'
+    get '/discover', to: 'discover#show'
   end
 
   get '/login', to: 'sessions#new'

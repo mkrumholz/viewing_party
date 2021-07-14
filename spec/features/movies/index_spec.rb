@@ -6,7 +6,7 @@ RSpec.describe 'Movies index' do
       user = User.create(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
-      visit '/discover'
+      visit discover_path
 
       response_body_1 = File.read('./spec/fixtures/search_results_1.json')
       stub_request(:get, "https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&query=Story&page=1")

@@ -2,12 +2,7 @@ class UsersController < Users::BaseController
   skip_before_action :authorize_user, only: %i[new create]
 
   def show
-    if current_user && User.find(current_user.id)
-      @user = User.find(current_user.id)
-    else
-      redirect_to root_path
-      flash[:error] = 'Error: Please log in to view this content.'
-    end
+    @user = User.find(current_user.id)
   end
 
   def new

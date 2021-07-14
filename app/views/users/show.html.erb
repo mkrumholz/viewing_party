@@ -1,7 +1,17 @@
-<%= button_to "Discover Top 40 Movies", movies_path, method: :get, local: true %>
-
-<%= form_with url: movies_path, method: :get, local: true do |f| %>
-  <%= f.label 'Search by title' %>
-  <%= f.text_field :title %>
-  <%= f.submit 'Search' %>
+<h1><%= "Welcome, #{@user.username}!" %></h1><br><br>
+<h3>Friends</h3><br>
+<h4>Add Friend</h4>
+<%= form_with url: friendships_path, method: :post, local: true do |f| %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+  <%= f.submit "Add Friend" %>
 <% end %>
+
+<% if @user.friends.present? %>
+  <% @user.friends.each do |friend| %>
+    <p><%= friend.username %></p>
+  <% end %>
+<% else %>
+  <p>You currently have no friends</p>
+<% end %><br>
+<%= link_to "Discover Movies", discover_path %>

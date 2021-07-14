@@ -80,5 +80,29 @@ RSpec.describe MovieDbFacade do
       expect(response.first).to be_a Movie       
       expect(response.last.title).to eq 'The Philadelphia Story'
     end
+
+    it 'returns an empty array if no results are present' do
+      stub_request(:get, "https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&query=asvjs&page=1")
+          .with(
+            headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Faraday v1.4.1'
+            })
+          .to_return(status: 200, body: [], headers: {})
+
+      stub_request(:get, "https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&query=asvjs&page=2")
+          .with(
+            headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Faraday v1.4.1'
+            })
+          .to_return(status: 200, body: [], headers: {})
+      
+      response = MovieDbFacade.search_results('asvjs')
+
+      expect(response).to eq []
+    end
   end
 end

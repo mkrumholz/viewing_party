@@ -62,6 +62,38 @@ RSpec.describe 'Movies index' do
     end
   end
 
+  describe 'no search results' do
+    it 'shows an error message if no results are returned' do
+      user = User.create(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password')
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit '/discover'
+      
+      stub_request(:get, "https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&query=asvjs&page=1")
+          .with(
+            headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Faraday v1.4.1'
+            })
+          .to_return(status: 200, body: [], headers: {})
+
+      stub_request(:get, "https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&query=asvjs&page=2")
+          .with(
+            headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Faraday v1.4.1'
+            })
+          .to_return(status: 200, body: [], headers: {})
+
+      fill_in :title, with: 'asvjs'
+      click_on "Search"
+      
+      expect(page).to have_content "No results. Please try another search."
+    end
+  end
+
   describe 'top 40 movies' do
     before :each do
       user = User.create(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password')

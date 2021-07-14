@@ -22,6 +22,7 @@ class MovieDbService
   end
 
   def self.parse_json(response)
-    JSON.parse(response.body, symbolize_names: true)
+    return {results: []} if response.body.empty?
+    JSON.parse(response.body, symbolize_names: true) 
   end
 end

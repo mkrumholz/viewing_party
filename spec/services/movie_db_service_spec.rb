@@ -101,5 +101,22 @@ RSpec.describe MovieDbService do
       expect(page_2_response[:results].count).to eq 20
       expect(page_2_response[:results].last[:title]).to eq 'The Philadelphia Story'  
     end
+
+    it 'can handle searches with no results' do
+      stub_request(:get, "https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_DB_KEY']}&include_adult=false&language=en&query=asvjs&page=1")
+          .with(
+            headers: {
+            'Accept'=>'*/*',
+            'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'User-Agent'=>'Faraday v1.4.1'
+            })
+          .to_return(status: 200, body: [], headers: {})
+      
+      response = MovieDbService.list_search_results('asvjs', 1)
+
+      expect(response).to be_a Hash
+      expect(response[:results]).to be_an Array
+      expect(response).to eq({results: []})
+    end
   end
 end

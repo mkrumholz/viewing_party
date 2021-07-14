@@ -30,15 +30,25 @@ Viewing party is an application for users to explore movies via The Movie Databa
 
 <img width="400" alt="database schema diagram" src="https://user-images.githubusercontent.com/26797256/125482889-0357bbc1-45e7-4018-829e-cebfdc18d446.png">
 
-### Tools and Dependencies
 
-#### Important Gems
-#### Running tests
+## Important Gems
+Testing
+* [rspec-rails](https://github.com/rspec/rspec-rails)
+* [capybara](https://github.com/teamcapybara/capybara)
+* [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers)
+* [simplecov](https://github.com/simplecov-ruby/simplecov)
+* [webmock](https://github.com/bblimke/webmock)
 
+API Consumption
+* [faraday](https://github.com/lostisland/faraday)
+* [figaro](https://github.com/laserlemon/figaro)
 
-
-
-<!-- explain how to run tests (`bundle exec rspec`) -->
+## Testing
+* RSpec and Capybara were used for unit and integration testing and project development adhered to TDD principles.
+* WebMock was used to stub out API requests and actual requests are blocked from the test environment.
+* Simplecov was used to track total test coverage.
+* To run our test suite, RSpec, enter `$ bundle exec rspec` in the terminal.
+* To see a coverage report enter `$ open coverage/index.html`
 
 ## Versions
 

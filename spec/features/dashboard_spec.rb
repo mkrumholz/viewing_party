@@ -28,7 +28,7 @@ RSpec.describe 'User dashboard' do
 
       expect(page).to have_content "You currently have no friends"
     end
-  
+
     it "can add a friend" do
       user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
       user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
@@ -57,7 +57,7 @@ RSpec.describe 'User dashboard' do
       expect(page).to have_content(user3.username)
       expect(page).not_to have_content(user4.username)
     end
-  
+
     it "displays an error message if friend is not found" do
       visit '/dashboard'
 
@@ -66,7 +66,7 @@ RSpec.describe 'User dashboard' do
 
       expect(page).to have_content("Unable to add friend. User with email user2@gmail.com not found.")
     end
-  
+
     it 'does not allow user to add themself as a friend' do
       visit '/dashboard'
 
@@ -89,7 +89,21 @@ RSpec.describe 'User dashboard' do
 
       expect(page).to have_content("Error: You are already friends with this user.")
     end
+    it 'throws a generic error if friend is not saved' do
+      user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+      allow_any_instance_of(User).to receive(:add_friend).and_return(false)
+
+      visit '/dashboard'
+
+      save_and_open_page
+
+      fill_in :email, with: 'user2@test.com'
+      click_on "Add Friend"
+
+      expect(page).to have_content("Friendship not successfully created.")
+    end
   end
+
 
   context 'user is NOT logged in' do
     it "does not display welcome message if user is not logged in" do

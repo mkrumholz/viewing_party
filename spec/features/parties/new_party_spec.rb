@@ -26,15 +26,12 @@ RSpec.describe 'New Viewing Party' do
     @friendship3 = Friendship.create(user_id: @user.id, friend_id: @user4.id)
 
     expect(page).to have_content 'Toy Story'
-
     click_on 'Create Viewing Party for Movie'
-
     expect(current_path).to eq new_party_path
 
     duration = '81'
     date = Date.parse('2021-07-14')
     start_time = Time.parse('1:00')
-
     fill_in 'party[duration]', with: duration
     fill_in 'party[date]', with: date
     fill_in 'party[start_time]', with: start_time
@@ -62,13 +59,39 @@ RSpec.describe 'New Viewing Party' do
 
     expect(current_path).to eq new_party_path
     duration = '81'
-    day = '7/14/21'
-    start_time = '1:00'
+    date = Date.parse('2021-07-14')
+    start_time = Time.parse('1:00')
+    fill_in 'party[duration]', with: duration
+    fill_in 'party[date]', with: date
+    fill_in 'party[start_time]', with: start_time
 
     expect(page).to have_content("You currently have no friends to watch with")
     expect(page).not_to have_content('test_user2')
     click_on "Create Party"
     expect(page).to have_content("Error: Party must need friends.")
+    expect(current_path).to eq new_party_path
+  end
+  it "doesnt create party if form is not filled out all the way" do
+    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    @user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
+    @user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
+    @friendship1 = Friendship.create(user_id: @user.id, friend_id: @user2.id)
+    @friendship2 = Friendship.create(user_id: @user.id, friend_id: @user3.id)
+    expect(page).to have_content 'Toy Story'
+    click_on 'Create Viewing Party for Movie'
+    expect(current_path).to eq new_party_path
+
+    duration = ""
+    date = Date.parse('2021-07-28')
+    start_time = ""
+    fill_in 'party[duration]', with: duration
+    fill_in 'party[date]', with: date
+    fill_in 'party[start_time]', with: start_time
+
+    expect(page).to have_content("You currently have no friends to watch with")
+    expect(page).not_to have_content('test_user2')
+    click_on "Create Party"
+    expect(page).to have_content("Error: Party not created")
     expect(current_path).to eq new_party_path
   end
 
@@ -82,12 +105,14 @@ RSpec.describe 'New Viewing Party' do
 
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
-
     expect(current_path).to eq new_party_path
 
     duration = '60'#actually 81
-    day = '7/14/21'
-    start_time = '1:00'
+    date = Date.parse('2021-07-14')
+    start_time = Time.parse('1:00')
+    fill_in 'party[duration]', with: duration
+    fill_in 'party[date]', with: date
+    fill_in 'party[start_time]', with: start_time
 
     check('test_user2')
     click_on "Create Party"

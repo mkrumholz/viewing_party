@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :friendships, only: :create
   resources :movies, only: [:index, :show]
-
+  resources :parties, only: [:new, :create]
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

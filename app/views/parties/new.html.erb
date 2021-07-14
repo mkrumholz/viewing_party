@@ -1,0 +1,31 @@
+<h1>Viewing Party Details</h1>
+<%= form_with model: @party, local: true do |f| %>
+  <%= f.label :movie_title, "Movie Title" %><br><br>
+  <%= f.text_field :movie_title, value: @title, readonly: true %><br><br>
+
+  <%= f.label :duration, "Duration of Party(min)" %><br>
+  <%= f.number_field :duration, placeholder: @duration, min: @duration %><br><br>
+  <%= hidden_field_tag :runtime, @duration %>
+
+  <%= f.label :date, "Day" %><br>
+  <%= f.date_field :date %><br><br>
+
+  <%= f.label :start_time, "Start Time" %><br>
+  <%= f.time_field :start_time %><br><br>
+
+  <%= f.label :include, "Include" %><br><br>
+  <%= hidden_field_tag :runtime, @duration %>
+  <%= hidden_field_tag :external_movie_id, @id %>
+
+
+  <% if current_user.friends.present? %>
+    <%= f.collection_check_boxes(:invitations, current_user.friends, :id, :username) do |b| %>
+      <%= b.check_box %>
+      <%= b.label %><br>
+    <% end %>
+  <% else %>
+    <p> You currently have no friends to watch with </p>
+  <% end %><br>
+
+  <%= f.submit 'Create Party' %><br>
+<% end %>

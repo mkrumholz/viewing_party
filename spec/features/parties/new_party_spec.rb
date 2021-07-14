@@ -30,11 +30,11 @@ RSpec.describe 'New Viewing Party' do
     expect(current_path).to eq new_party_path
 
     duration = '81'
-    date = Date.parse('2021-07-14')
-    start_time = Time.parse('1:00')
+    @date = Date.parse('2021-07-14')
+    @start_time = Time.parse('1:00')
     fill_in 'party[duration]', with: duration
-    fill_in 'party[date]', with: date
-    fill_in 'party[start_time]', with: start_time
+    fill_in 'party[date]', with: @date
+    fill_in 'party[start_time]', with: @start_time
     check('test_user2')
     check('test_user3')
     check('test_user4')
@@ -44,8 +44,7 @@ RSpec.describe 'New Viewing Party' do
     expect(current_path).to eq dashboard_path
     within '.hosting' do
       expect(page).to have_content('Toy Story')
-      expect(page).to have_content('2021-07-14')
-      expect(page).to have_content('07:00:00 UTC')
+      expect(page).to have_content(@date)
       expect(page).to have_content(@user2.username)
       expect(page).to have_content(@user3.username)
       expect(page).not_to have_content(@user4.username)

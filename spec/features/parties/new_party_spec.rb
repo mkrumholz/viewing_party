@@ -28,7 +28,7 @@ RSpec.describe 'New Viewing Party' do
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
     expect(current_path).to eq new_party_path
-
+    
     duration = '81'
     date = Date.parse('2021-07-14')
     start_time = Time.parse('1:00')
@@ -40,7 +40,7 @@ RSpec.describe 'New Viewing Party' do
     check('test_user4')
     uncheck('test_user4')
     click_on "Create Party"
-
+    save_and_open_page
     expect(current_path).to eq dashboard_path
     within '.hosting' do
       expect(page).to have_content('Toy Story')

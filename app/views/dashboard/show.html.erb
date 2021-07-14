@@ -26,7 +26,7 @@
       Invited:<br>
       <% if party.invitations.present? %>
         <% party.invitations.each do |invitation| %>
-          <%= invitation.guest_name %>
+          <%= invitation.guest_name %><br>
         <% end %>
       <% else %>
         <p>No Friends Invited</p>
@@ -45,7 +45,7 @@
       Date: <%= invitation.party.date %><br>
       Time: <%= invitation.party.start_time %><br>
       Invited:<br>
-      <% invitation.party.invitations.each do |friend| %>
+      <% invitation.party.invitations.each do |friend| %><br>
         <%= friend.guest_name %><br>
       <% end %>
     <% end %><br>

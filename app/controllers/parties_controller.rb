@@ -16,7 +16,7 @@ class PartiesController < ApplicationController
       end
       flash[:success] = 'New Viewing Party Created'
       redirect_to dashboard_path
-    elsif !params[:party][:invitations].present? && params[:party][:duration] >= params[:runtime]
+    elsif !params[:party][:invitations].present? && params[:party][:duration] >= params[:runtime] && params[:external_movie_id].present?
       flash[:error] = 'Error: Party must need friends.'
       redirect_to new_party_path({ title: params[:party][:movie_title], duration: params[:runtime] })
     elsif params[:party][:duration] < params[:runtime] && params[:party][:invitations].present? && params[:external_movie_id].present?
@@ -31,7 +31,7 @@ class PartiesController < ApplicationController
   private
 
   def party_params
-    params.require(:party).permit(:movie_title, :duration, :date,
-                                  :start_time).merge({ external_movie_id: params[:external_movie_id] })
+    params.require(:party).permit(:movie_title, :duration, :date, :start_time)
+    .merge({ external_movie_id: params[:external_movie_id] })
   end
 end

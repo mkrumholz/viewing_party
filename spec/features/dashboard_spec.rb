@@ -95,8 +95,6 @@ RSpec.describe 'User dashboard' do
 
       visit '/dashboard'
 
-      save_and_open_page
-
       fill_in :email, with: 'user2@test.com'
       click_on "Add Friend"
 

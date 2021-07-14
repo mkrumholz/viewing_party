@@ -45,7 +45,7 @@ RSpec.describe 'New Viewing Party' do
     within '.hosting' do
       expect(page).to have_content('Toy Story')
       expect(page).to have_content('2021-07-14')
-      expect(page).to have_content('2000-01-01 07:00:00 UTC')
+      expect(page).to have_content('07:00:00 UTC')
       expect(page).to have_content(@user2.username)
       expect(page).to have_content(@user3.username)
       expect(page).not_to have_content(@user4.username)

@@ -1,6 +1,6 @@
 class Party < ApplicationRecord
   belongs_to :user
-  has_many :invitations
+  has_many :invitations, dependent: :destroy
 
   validates :movie_title, presence: true
   validates :duration, presence: true

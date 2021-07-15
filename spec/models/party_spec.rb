@@ -15,11 +15,19 @@ RSpec.describe Party do
       external_movie_id: 200
     )
 
-    invalid_party = Party.create(
+    invalid_party1 = Party.create(
         user_id: 1,
         movie_title: 'Toy_story',
         date: 2.days.ago,
         start_time: Time.parse('13:00'),
+        external_movie_id: 200
+      )
+
+      invalid_party2 = Party.create(
+        user_id: 1,
+        movie_title: 'Toy_story',
+        date: Date.today,
+        start_time: Time.now - 10.minutes,
         external_movie_id: 200
       )
 

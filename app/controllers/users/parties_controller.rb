@@ -15,7 +15,7 @@ class Users::PartiesController < Users::BaseController
       flash[:error] = 'Error: Party must need friends.'
       redirect_with_params
     elsif new_party.save
-      create_invitations
+      create_invitations(new_party)
       flash[:success] = 'New Viewing Party Created'
       redirect_to dashboard_path
     else
@@ -26,11 +26,9 @@ class Users::PartiesController < Users::BaseController
 
   private
 
-  def create_invitations
-    new_party = current_user.parties.new(party_params)
-    new_party.save
+  def create_invitations(party)
     params[:party][:invitations].each do |invitation|
-      new_party.invitations.create(user_id: invitation) if invitation != ''
+      party.invitations.create(user_id: invitation) if invitation != ''
     end
   end
 

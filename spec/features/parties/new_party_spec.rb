@@ -72,6 +72,9 @@ RSpec.describe 'New Viewing Party' do
 
     expect(page).to have_content("Error: Party must need friends.")
     expect(current_path).to eq new_party_path
+
+    visit dashboard_path
+    expect(page).not_to have_content("Toy Story")
   end
 
   it "doesnt create party if form is not filled out all the way" do

@@ -7,7 +7,6 @@ class Users::PartiesController < Users::BaseController
   end
 
   def create
-    # party_invalid?(party_params)
     new_party = current_user.parties.new(party_params)
     if params[:party][:invitations].nil? || params[:party][:invitations].all? { |friend| friend == '' }
       flash[:error] = 'Error: Party must need friends.'
@@ -21,7 +20,7 @@ class Users::PartiesController < Users::BaseController
       redirect_to dashboard_path
     else
       flash[:error] = 'Error: Party not created'
-      flash[:error] = "Error: #{error_message(new_party.errors)}"
+      flash[:error] = "#{error_message(new_party.errors)}"
       redirect_with_params
     end
   end
@@ -39,14 +38,10 @@ class Users::PartiesController < Users::BaseController
                                  external_movie_id: params[:external_movie_id] })
   end
 
-  # def party_valid?(party_params)
-  #   params[:party][:duration] >= params[:runtime] 
-  #     && params[:party][:invitations].present? 
-  #     && params[:party][:invitations].any? { |friend| friend != '' }
-  # end
-
   def party_params
-    params.require(:party).permit(:movie_title, :duration, :starts_at_date, :starts_at_time)
+    date = Time.zone.parse("#{params[:party][:starts_at_date]} #{params[:party][:starts_at_time]}")
+    params.require(:party).permit(:movie_title, :duration)
           .merge({ external_movie_id: params[:external_movie_id] })
+          .merge({date: date})
   end
 end

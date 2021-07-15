@@ -17,8 +17,28 @@ RSpec.describe 'New Viewing Party' do
     visit '/movies/862'
   end
 
+  it "has a link to root path" do
+    click_on 'Create Viewing Party for Movie'
+    expect(current_path).to eq new_party_path
+    expect(page).to have_link("Welcome Page")
+
+    click_on "Welcome Page"
+
+    expect(current_path).to eq root_path
+  end
+
+  it "has a link to dashboard" do
+    click_on 'Create Viewing Party for Movie'
+    expect(current_path).to eq new_party_path
+    expect(page).to have_link("Dashboard")
+    
+    click_on "Dashboard"
+
+    expect(current_path).to eq dashboard_path
+  end
+
   it "Creates a new viewing party" do
-    allow(Date).to receive(:today).and_return(Date.parse('2021-07-12'))
+    allow(Time).to receive(:now).and_return(Time.parse('2021-07-12'))
     user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
     user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
     user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
@@ -60,7 +80,7 @@ RSpec.describe 'New Viewing Party' do
   end
 
   it "doesnt create party if user has no friends" do
-    allow(Date).to receive(:today).and_return(Date.parse('2021-07-12'))
+    allow(Time).to receive(:now).and_return(Time.parse('2021-07-12'))
     user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
 
     expect(page).to have_content 'Toy Story'
@@ -86,8 +106,9 @@ RSpec.describe 'New Viewing Party' do
     expect(current_path).to eq new_party_path
   end
 
+
   it "doesnt create party if form is not filled out all the way" do
-    allow(Date).to receive(:today).and_return(Date.parse('2021-07-12'))
+    allow(Time).to receive(:now).and_return(Time.parse('2021-07-12'))
     user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
     user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
     user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
@@ -111,12 +132,12 @@ RSpec.describe 'New Viewing Party' do
 
     click_on "Create Party"
 
-    expect(page).to have_content("Error: Date can't be blank")
+    expect(page).to have_content("Date can't be blank")
     expect(current_path).to eq new_party_path
   end
 
   it "doesnt create party if no fiends are added" do
-    allow(Date).to receive(:today).and_return(Date.parse('2021-07-12'))
+    allow(Time).to receive(:now).and_return(Time.parse('2021-07-12'))
     user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
     user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
     user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
@@ -143,7 +164,7 @@ RSpec.describe 'New Viewing Party' do
   end
 
   it "does not create if party duration is less than movie duration" do
-    allow(Date).to receive(:today).and_return(Date.parse('2021-07-12'))
+    allow(Time).to receive(:now).and_return(Time.parse('2021-07-12'))
     user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
     user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
     user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')

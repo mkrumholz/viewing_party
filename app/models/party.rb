@@ -9,7 +9,6 @@ class Party < ApplicationRecord
   validate :date_is_valid?
 
   def send_invitations
-    host = User.find(user_id)
     friends = invitations.map { |invitation| User.find(invitation.user_id) }
     friends.each do |friend|
       InvitationMailer.invite(host, friend, self).deliver_now
@@ -20,7 +19,7 @@ class Party < ApplicationRecord
     return if date.blank?
   
     error_msg = 'Error: Party must be set for a future date'
-    errors.add(:date, error_msg) if date <= Date.today
+    errors.add(:date, error_msg) if date < Time.now
   end
 
   def starts_at_date=(date)
@@ -47,5 +46,9 @@ class Party < ApplicationRecord
     if @starts_at_date && @starts_at_time
       self.date = Time.zone.parse("#{@starts_at_date} #{@starts_at_time}")
     end
+  end
+  
+  def host
+    User.find(user_id)
   end
 end

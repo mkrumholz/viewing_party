@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe 'Dashboard parties' do
   before :each do
-    allow(Date).to receive(:today).and_return(Date.parse('2021-07-12'))
+    allow(Time).to receive(:now).and_return(Time.parse('2021-07-12'))
     
     response_body = File.read('./spec/fixtures/toy_story.json')
     stub_request(:get, "https://api.themoviedb.org/3/movie/862?api_key=#{ENV['MOVIE_DB_KEY']}&language=en&append_to_response=credits,reviews")

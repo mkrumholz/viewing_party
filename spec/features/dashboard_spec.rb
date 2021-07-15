@@ -26,9 +26,9 @@ RSpec.describe 'User dashboard' do
     it "has a link to root path" do
       visit '/dashboard'
 
-      expect(page).to have_link("Root Path")
+      expect(page).to have_link("Welcome Page")
 
-      click_on "Root Path"
+      click_on "Welcome Page"
 
       expect(current_path).to eq root_path
     end

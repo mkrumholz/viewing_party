@@ -53,9 +53,9 @@ RSpec.describe 'movie show page' do
     end
 
     it "has a link to root path" do
-      expect(page).to have_link("Root Path")
-      save_and_open_page
-      click_on "Root Path"
+      expect(page).to have_link("Welcome Page")
+
+      click_on "Welcome Page"
 
       expect(current_path).to eq root_path
     end

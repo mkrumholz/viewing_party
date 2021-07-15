@@ -23,4 +23,30 @@ class Party < ApplicationRecord
     error_msg = 'Error: Party must be set for a future date'
     errors.add(:date, error_msg) if date <= Date.today
   end
+
+  def starts_at_date=(date)
+    @starts_at_date = date
+    set_date
+    date
+  end
+
+  def starts_at_time=(time)
+    @starts_at_time = time
+    set_date
+    time
+  end
+
+  def starts_at_date
+    starts_at&.strftime('%m/%d/%Y')
+  end
+
+  def starts_at_time
+    starts_at&.strftime('%H:%M')
+  end
+
+  def set_date
+    if @starts_at_date && @starts_at_time
+      self.date = Time.zone.parse("#{@starts_at_date} #{@starts_at_time}")
+    end
+  end
 end

@@ -59,4 +59,27 @@ RSpec.describe Party do
       expect { party.send_invitations }.to change { ActionMailer::Base.deliveries.count }.by(2)
     end
   end
+
+  describe '#set_date' do
+    it 'creates a datetime from a date and time' do
+      user = User.create!(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password')
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+      user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
+      user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
+
+      friendship1 = Friendship.create(user_id: user.id, friend_id: user2.id)
+      friendship2 = Friendship.create(user_id: user.id, friend_id: user3.id)
+      friendship3 = Friendship.create(user_id: user.id, friend_id: user4.id)
+
+
+      party = user.parties.new(movie_title: "Toy Story", duration: "81", external_movie_id: 862, starts_at_date: 5.days.from_now, starts_at_time: Time.parse('13:00'),start_time: Time.parse('13:00'))
+
+      party.set_date
+
+      expect(party.date&.strftime('%m/%d/%Y')).to eq 5.days.from_now&.strftime('%m/%d/%Y')
+      expect(party.save).to eq true
+    end
+  end
 end

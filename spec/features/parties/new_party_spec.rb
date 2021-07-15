@@ -72,11 +72,13 @@ RSpec.describe 'New Viewing Party' do
     expect(current_path).to eq new_party_path
 
     duration = '81'
-    date = Date.parse('2021-07-14')
+    starts_at_date = Date.parse('2021-07-14')
+    starts_at_time = Time.parse('13:00')
     start_time = Time.parse('13:00')
 
     fill_in 'party[duration]', with: duration
-    fill_in 'party[date]', with: date
+    fill_in 'party[starts_at_date]', with: starts_at_date
+    fill_in 'party[starts_at_time]', with: starts_at_time
     fill_in 'party[start_time]', with: start_time
 
     expect(page).to have_content("You currently have no friends to watch with")
@@ -103,17 +105,19 @@ RSpec.describe 'New Viewing Party' do
     expect(current_path).to eq new_party_path
 
     duration = "83"
-    date = Date.parse('2021-07-28')
+    starts_at_date = ''
+    starts_at_time = ''
     start_time = ""
 
     fill_in 'party[duration]', with: duration
-    fill_in 'party[date]', with: date
+    fill_in 'party[starts_at_date]', with: starts_at_date
+    fill_in 'party[starts_at_time]', with: starts_at_time
     fill_in 'party[start_time]', with: start_time
     check('test_user2')
 
     click_on "Create Party"
 
-    expect(page).to have_content("Error: Party not created")
+    expect(page).to have_content("Error: Date can't be blank")
     expect(current_path).to eq new_party_path
   end
 
@@ -132,11 +136,13 @@ RSpec.describe 'New Viewing Party' do
     expect(current_path).to eq new_party_path
 
     duration = "83"
-    date = Date.parse('2021-07-28')
+    starts_at_date = Date.parse('2021-07-14')
+    starts_at_time = Time.parse('13:00')
     start_time = Time.parse('13:00')
 
     fill_in 'party[duration]', with: duration
-    fill_in 'party[date]', with: date
+    fill_in 'party[starts_at_date]', with: starts_at_date
+    fill_in 'party[starts_at_time]', with: starts_at_time
     fill_in 'party[start_time]', with: start_time
     click_on "Create Party"
 
@@ -160,11 +166,13 @@ RSpec.describe 'New Viewing Party' do
     expect(current_path).to eq new_party_path
 
     duration = '60'#actually 81
-    date = Date.parse('2021-07-14')
+    starts_at_date = Date.parse('2021-07-14')
+    starts_at_time = Time.parse('13:00')
     start_time = Time.parse('13:00')
 
     fill_in 'party[duration]', with: duration
-    fill_in 'party[date]', with: date
+    fill_in 'party[starts_at_date]', with: starts_at_date
+    fill_in 'party[starts_at_time]', with: starts_at_time
     fill_in 'party[start_time]', with: start_time
     check('test_user2')
 
@@ -186,16 +194,18 @@ RSpec.describe 'New Viewing Party' do
     expect(current_path).to eq new_party_path
 
     duration = '81'
-    date = 2.days.ago
+    starts_at_date = 5.days.ago
+    starts_at_time = Time.parse('13:00')
     start_time = Time.parse('13:00')
 
     fill_in 'party[duration]', with: duration
-    fill_in 'party[date]', with: date
+    fill_in 'party[starts_at_date]', with: starts_at_date
+    fill_in 'party[starts_at_time]', with: starts_at_time
     fill_in 'party[start_time]', with: start_time
     check('test_user2')
     
     click_on "Create Party"
 
-    expect(page).to have_content "Error: A party cannot by created for a past date"
+    expect(page).to have_content "Party must be set for a future date"
   end
 end

@@ -4,7 +4,7 @@ RSpec.describe InvitationMailer, type: :mailer do
   describe 'invite' do
     let(:user) { User.create(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password') }
     let(:user2) { User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password') }
-    let(:party) { user.parties.create(movie_title: "Toy Story", duration: "81", date: "2021-07-14", external_movie_id: 862) }
+    let(:party) { user.parties.create(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), external_movie_id: 862) }
 
     let(:mail) { InvitationMailer.invite(user, user2, party).deliver_now }
 

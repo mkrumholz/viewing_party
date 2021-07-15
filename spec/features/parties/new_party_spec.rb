@@ -35,12 +35,10 @@ RSpec.describe 'New Viewing Party' do
     duration = '81'
     starts_at_date = Date.parse('2021-07-14')
     starts_at_time = Time.parse('13:00')
-    start_time = Time.parse('13:00')
 
     fill_in 'party[duration]', with: duration
     fill_in 'party[starts_at_date]', with: starts_at_date
     fill_in 'party[starts_at_time]', with: starts_at_time
-    fill_in 'party[start_time]', with: start_time
 
     check('test_user2')
     check('test_user3')
@@ -74,12 +72,10 @@ RSpec.describe 'New Viewing Party' do
     duration = '81'
     starts_at_date = Date.parse('2021-07-14')
     starts_at_time = Time.parse('13:00')
-    start_time = Time.parse('13:00')
 
     fill_in 'party[duration]', with: duration
     fill_in 'party[starts_at_date]', with: starts_at_date
     fill_in 'party[starts_at_time]', with: starts_at_time
-    fill_in 'party[start_time]', with: start_time
 
     expect(page).to have_content("You currently have no friends to watch with")
     expect(page).not_to have_content('test_user2')
@@ -107,12 +103,10 @@ RSpec.describe 'New Viewing Party' do
     duration = "83"
     starts_at_date = ''
     starts_at_time = ''
-    start_time = ""
 
     fill_in 'party[duration]', with: duration
     fill_in 'party[starts_at_date]', with: starts_at_date
     fill_in 'party[starts_at_time]', with: starts_at_time
-    fill_in 'party[start_time]', with: start_time
     check('test_user2')
 
     click_on "Create Party"
@@ -138,12 +132,10 @@ RSpec.describe 'New Viewing Party' do
     duration = "83"
     starts_at_date = Date.parse('2021-07-14')
     starts_at_time = Time.parse('13:00')
-    start_time = Time.parse('13:00')
 
     fill_in 'party[duration]', with: duration
     fill_in 'party[starts_at_date]', with: starts_at_date
     fill_in 'party[starts_at_time]', with: starts_at_time
-    fill_in 'party[start_time]', with: start_time
     click_on "Create Party"
 
     expect(page).to have_content('Error: Party must need friends.')
@@ -168,12 +160,10 @@ RSpec.describe 'New Viewing Party' do
     duration = '60'#actually 81
     starts_at_date = Date.parse('2021-07-14')
     starts_at_time = Time.parse('13:00')
-    start_time = Time.parse('13:00')
 
     fill_in 'party[duration]', with: duration
     fill_in 'party[starts_at_date]', with: starts_at_date
     fill_in 'party[starts_at_time]', with: starts_at_time
-    fill_in 'party[start_time]', with: start_time
     check('test_user2')
 
     click_on "Create Party"
@@ -196,12 +186,10 @@ RSpec.describe 'New Viewing Party' do
     duration = '81'
     starts_at_date = 5.days.ago
     starts_at_time = Time.parse('13:00')
-    start_time = Time.parse('13:00')
 
     fill_in 'party[duration]', with: duration
     fill_in 'party[starts_at_date]', with: starts_at_date
     fill_in 'party[starts_at_time]', with: starts_at_time
-    fill_in 'party[start_time]', with: start_time
     check('test_user2')
     
     click_on "Create Party"

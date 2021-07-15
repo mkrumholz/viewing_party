@@ -46,7 +46,7 @@ class Users::PartiesController < Users::BaseController
   # end
 
   def party_params
-    params.require(:party).permit(:movie_title, :duration, :starts_at_date, :starts_at_time, :start_time)
+    params.require(:party).permit(:movie_title, :duration, :starts_at_date, :starts_at_time)
           .merge({ external_movie_id: params[:external_movie_id] })
   end
 end

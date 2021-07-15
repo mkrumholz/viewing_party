@@ -24,7 +24,7 @@ RSpec.describe 'Dashboard parties' do
     friendship1 = Friendship.create(user_id: user.id, friend_id: user2.id)
     friendship2 = Friendship.create(user_id: user.id, friend_id: user3.id)
     friendship3 = Friendship.create(user_id: user.id, friend_id: user4.id)
-    party = user.parties.create(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
+    party = user.parties.create(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), external_movie_id: 862)
     party.invitations.create(user_id: user2.id)
     party.invitations.create(user_id: user3.id)
     visit dashboard_path
@@ -70,7 +70,7 @@ RSpec.describe 'Dashboard parties' do
     friendship1 = Friendship.create(user_id: user.id, friend_id: user2.id)
     friendship2 = Friendship.create(user_id: user.id, friend_id: user3.id)
     friendship3 = Friendship.create(user_id: user.id, friend_id: user4.id)
-    party = user.parties.create(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
+    party = user.parties.create(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), external_movie_id: 862)
     visit dashboard_path
 
     within '.hosting' do
@@ -95,7 +95,7 @@ RSpec.describe 'Dashboard parties' do
     friendship1 = Friendship.create(user_id: user.id, friend_id: user2.id)
     friendship2 = Friendship.create(user_id: user.id, friend_id: user3.id)
     friendship3 = Friendship.create(user_id: user.id, friend_id: user4.id)
-    party = user.parties.create(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
+    party = user.parties.create(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), external_movie_id: 862)
     party.invitations.create(user_id: user2.id)
     party.invitations.create(user_id: user3.id)
     visit dashboard_path
@@ -120,7 +120,7 @@ RSpec.describe 'Dashboard parties' do
     friendship5 = Friendship.create(user_id: user2.id, friend_id: user3.id)
     friendship3 = Friendship.create(user_id: user2.id, friend_id: user4.id)
 
-    party = user2.parties.create!(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
+    party = user2.parties.create!(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), external_movie_id: 862)
     party.invitations.create(user_id: user.id)#user2 creates party and invites user
     party.invitations.create(user_id: user3.id)
 
@@ -149,7 +149,7 @@ RSpec.describe 'Dashboard parties' do
     friendship4 = Friendship.create(user_id: user2.id, friend_id: user.id)#user2 is the user with the friendships
     friendship5 = Friendship.create(user_id: user2.id, friend_id: user3.id)
     friendship3 = Friendship.create(user_id: user2.id, friend_id: user4.id)
-    party = user2.parties.create!(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
+    party = user2.parties.create!(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), external_movie_id: 862)
 
     visit dashboard_path
     within '.invited' do
@@ -169,7 +169,7 @@ RSpec.describe 'Dashboard parties' do
     friendship5 = Friendship.create(user_id: user2.id, friend_id: user3.id)
     friendship3 = Friendship.create(user_id: user2.id, friend_id: user4.id)
 
-    party = user2.parties.create!(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
+    party = user2.parties.create!(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), external_movie_id: 862)
     party.invitations.create(user_id: user.id)#user2 creates party and invites user
     party.invitations.create(user_id: user3.id)
 

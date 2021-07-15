@@ -10,31 +10,30 @@ RSpec.describe Party do
     valid_party = Party.create(
       user_id: 1,
       movie_title: 'Toy_story',
-      date: 2.days.from_now,
-      start_time: Time.parse('13:00'),
+      starts_at_date: 2.days.from_now,
+      starts_at_time: Time.parse('13:00'),
       external_movie_id: 200
     )
 
     invalid_party1 = Party.create(
         user_id: 1,
         movie_title: 'Toy_story',
-        date: 2.days.ago,
-        start_time: Time.parse('13:00'),
+        starts_at_date: 2.days.ago,
+        starts_at_time: Time.parse('13:00'),
         external_movie_id: 200
       )
 
       invalid_party2 = Party.create(
         user_id: 1,
         movie_title: 'Toy_story',
-        date: Date.today,
-        start_time: Time.now - 10.minutes,
+        starts_at_date: Date.today,
+        starts_at_time: Time.now - 10.minutes,
         external_movie_id: 200
       )
 
     it { should validate_presence_of(:movie_title) }
     it { should validate_presence_of(:duration) }
     it { should validate_presence_of(:date) }
-    it { should validate_presence_of(:start_time) }
     it { should validate_presence_of(:external_movie_id) }
   end
 
@@ -51,7 +50,7 @@ RSpec.describe Party do
       friendship2 = Friendship.create(user_id: user.id, friend_id: user3.id)
       friendship3 = Friendship.create(user_id: user.id, friend_id: user4.id)
 
-      party = user.parties.create(movie_title: "Toy Story", duration: "81", date: 2.days.from_now, start_time: "2021-07-12 13:00:00 -0600", external_movie_id: 862)
+      party = user.parties.create(movie_title: "Toy Story", duration: "81", starts_at_date: 2.days.from_now, starts_at_time: Time.parse('13:00'), external_movie_id: 862)
 
       party.invitations.create(user_id: user2.id)
       party.invitations.create(user_id: user3.id)
@@ -74,7 +73,7 @@ RSpec.describe Party do
       friendship3 = Friendship.create(user_id: user.id, friend_id: user4.id)
 
 
-      party = user.parties.new(movie_title: "Toy Story", duration: "81", external_movie_id: 862, starts_at_date: 5.days.from_now, starts_at_time: Time.parse('13:00'),start_time: Time.parse('13:00'))
+      party = user.parties.new(movie_title: "Toy Story", duration: "81", external_movie_id: 862, starts_at_date: 5.days.from_now, starts_at_time: Time.parse('13:00'))
 
       party.set_date
 

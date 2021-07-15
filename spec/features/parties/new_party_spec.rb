@@ -1,4 +1,5 @@
 require 'rails_helper'
+
 RSpec.describe 'New Viewing Party' do
   before :each do
     @user = User.create(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password')

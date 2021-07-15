@@ -1,0 +1,14 @@
+<h1>You're Invited!</h1>
+
+<p><%= "Hi #{@friend}," %></p><br/>
+<p><%= @host %> has invited you to a movie viewing party!</p><br/>
+
+<h3>Event Details</h3>
+<p>Movie: <%= @party.movie_title %></p>
+<p>Date: <%= @party.date.strftime("%A, %B %e, %Y") %></p>
+<p>Time: <%= @party.start_time.strftime("%I:%M%P") %></p>
+<p>Length: <%= "#{@party.duration / 60} hr #{@party.duration % 60} min" %></p><br/>
+
+<p>Can't wait to see you there!</p><br/>
+
+<p>Your friends at Viewing Party</p>

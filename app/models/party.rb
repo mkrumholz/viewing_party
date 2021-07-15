@@ -37,11 +37,11 @@ class Party < ApplicationRecord
   end
 
   def starts_at_date
-    starts_at&.strftime('%m/%d/%Y')
+    date&.strftime('%m/%d/%Y')
   end
 
   def starts_at_time
-    starts_at&.strftime('%H:%M')
+    date&.strftime('%H:%M')
   end
 
   def set_date

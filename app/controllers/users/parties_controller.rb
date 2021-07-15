@@ -19,11 +19,12 @@ class Users::PartiesController < Users::BaseController
       create_invitations(new_party)
       flash[:success] = 'New Viewing Party Created'
       redirect_to dashboard_path
-    elsif Date.parse(params[:party][:date]) < Date.today
+    elsif new_party.date < Date.today
       flash[:error] = 'Error: A party cannot by created for a past date'
       redirect_with_params
     else
       flash[:error] = 'Error: Party not created'
+      flash[:error] = "🛑 Error: #{error_message(new_party.errors)}"
       redirect_with_params
     end
   end
@@ -48,7 +49,7 @@ class Users::PartiesController < Users::BaseController
   # end
 
   def party_params
-    params.require(:party).permit(:movie_title, :duration, :date, :start_time)
+    params.require(:party).permit(:movie_title, :duration, :starts_at_date, :starts_at_time, :start_time)
           .merge({ external_movie_id: params[:external_movie_id] })
   end
 end

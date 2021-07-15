@@ -8,7 +8,10 @@
   <%= hidden_field_tag :runtime, @duration %>
 
   <%= f.label :date, "Day" %><br>
-  <%= f.date_field :date, min: Date.today %><br><br>
+  <%= f.date_field :starts_at_date, min: Date.today %><br><br>
+
+  <%= f.label :starts_at_time, "Start Time" %><br>
+  <%= f.time_field :starts_at_time %><br><br>
 
   <%= f.label :start_time, "Start Time" %><br>
   <%= f.time_field :start_time %><br><br>

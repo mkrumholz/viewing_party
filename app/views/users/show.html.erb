@@ -21,8 +21,9 @@
   <% if @user.parties.present? %>
     <% @user.parties.each do |party| %>
     <%= link_to "#{party.movie_title}", movie_path(party.external_movie_id)%><br>
-      Date: <%= party.date %><br>
-      Time: <%= party.start_time %><br>
+      Date: <%= party.date.strftime("%A, %B %e, %Y") %><br>
+      Time: <%= party.date.strftime("%I:%M%P") %><br>
+      Length <%= "#{party.duration / 60} hr #{party.duration % 60} min" %>
       Invited:<br>
       <% if party.invitations.present? %>
         <% party.invitations.each do |invitation| %>
@@ -42,8 +43,9 @@
   <% if @user.invitations.present? %>
     <% @user.invitations.each do |invitation| %>
     <%= link_to "#{invitation.party.movie_title}", movie_path(invitation.party.external_movie_id) %><br>
-      Date: <%= invitation.party.date %><br>
-      Time: <%= invitation.party.start_time %><br>
+      Date: <%= invitation.party.date.strftime("%A, %B %e, %Y") %><br>
+      Time: <%= invitation.party.date.strftime("%I:%M%P") %><br>
+      Length <%= "#{@party.duration / 60} hr #{@party.duration % 60} min" %>
       Invited:<br>
       <% invitation.party.invitations.each do |friend| %><br>
         <%= friend.guest_name %><br>

@@ -27,17 +27,19 @@ RSpec.describe 'New Viewing Party' do
     friendship3 = Friendship.create(user_id: @user.id, friend_id: user4.id)
 
     expect(page).to have_content 'Toy Story'
-    
+
     click_on 'Create Viewing Party for Movie'
 
     expect(current_path).to eq new_party_path
 
     duration = '81'
-    date = Date.parse('2021-07-14')
+    starts_at_date = Date.parse('2021-07-14')
+    starts_at_time = Time.parse('13:00')
     start_time = Time.parse('13:00')
 
     fill_in 'party[duration]', with: duration
-    fill_in 'party[date]', with: date
+    fill_in 'party[starts_at_date]', with: starts_at_date
+    fill_in 'party[starts_at_time]', with: starts_at_time
     fill_in 'party[start_time]', with: start_time
 
     check('test_user2')
@@ -50,7 +52,9 @@ RSpec.describe 'New Viewing Party' do
     expect(current_path).to eq dashboard_path
     within '.hosting' do
       expect(page).to have_content('Toy Story')
-      expect(page).to have_content(date)
+      expect(page).to have_content('1 hr 21 min')
+      expect(page).to have_content('7:00pm')
+      expect(page).to have_content('Wednesday, July 14, 2021')
       expect(page).to have_content(user2.username)
       expect(page).to have_content(user3.username)
       expect(page).not_to have_content(user4.username)

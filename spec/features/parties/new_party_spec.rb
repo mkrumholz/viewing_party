@@ -17,6 +17,26 @@ RSpec.describe 'New Viewing Party' do
     visit '/movies/862'
   end
 
+  it "has a link to root path" do
+    click_on 'Create Viewing Party for Movie'
+    expect(current_path).to eq new_party_path
+    expect(page).to have_link("Welcome Page")
+
+    click_on "Welcome Page"
+
+    expect(current_path).to eq root_path
+  end
+
+  it "has a link to dashboard" do
+    click_on 'Create Viewing Party for Movie'
+    expect(current_path).to eq new_party_path
+    expect(page).to have_link("Dashboard")
+    
+    click_on "Dashboard"
+
+    expect(current_path).to eq dashboard_path
+  end
+
   it "Creates a new viewing party" do
     @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
     @user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
@@ -73,6 +93,7 @@ RSpec.describe 'New Viewing Party' do
     expect(page).to have_content("Error: Party must need friends.")
     expect(current_path).to eq new_party_path
   end
+
 
   it "doesnt create party if form is not filled out all the way" do
     @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')

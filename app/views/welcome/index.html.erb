@@ -3,6 +3,8 @@
   Viewing party is an application in which users can explore movie options and create a viewing party event for the user and friends.
 </p><br/>
 <% if current_user %>
+  <%= link_to 'Dashboard', dashboard_path %>
+  <%= link_to 'Discover Movies', discover_path %><br><br>
   <%= link_to 'Log out', '/logout', method: :delete %>
 <% else %>
   <%= link_to 'Register as a User', register_path %>

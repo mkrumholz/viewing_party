@@ -7,6 +7,7 @@ class Users::PartiesController < Users::BaseController
   end
 
   def create
+    # party_invalid?(party_params)
     new_party = current_user.parties.new(party_params)
     if params[:party][:duration] < params[:runtime]
       flash[:error] = 'Error: Party duration must match or exceed movie runtime.'
@@ -18,6 +19,9 @@ class Users::PartiesController < Users::BaseController
       create_invitations(new_party)
       flash[:success] = 'New Viewing Party Created'
       redirect_to dashboard_path
+    elsif Date.parse(params[:party][:date]) < Date.today
+      flash[:error] = 'Error: A party cannot by created for a past date'
+      redirect_with_params
     else
       flash[:error] = 'Error: Party not created'
       redirect_with_params
@@ -36,6 +40,12 @@ class Users::PartiesController < Users::BaseController
     redirect_to new_party_path({ title: params[:party][:movie_title], duration: params[:runtime],
                                  external_movie_id: params[:external_movie_id] })
   end
+
+  # def party_valid?(party_params)
+  #   params[:party][:duration] >= params[:runtime] 
+  #     && params[:party][:invitations].present? 
+  #     && params[:party][:invitations].any? { |friend| friend != '' }
+  # end
 
   def party_params
     params.require(:party).permit(:movie_title, :duration, :date, :start_time)

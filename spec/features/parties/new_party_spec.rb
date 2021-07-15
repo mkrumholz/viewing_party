@@ -18,23 +18,24 @@ RSpec.describe 'New Viewing Party' do
   end
 
   it "Creates a new viewing party" do
-    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @friendship1 = Friendship.create(user_id: @user.id, friend_id: @user2.id)
-    @friendship2 = Friendship.create(user_id: @user.id, friend_id: @user3.id)
-    @friendship3 = Friendship.create(user_id: @user.id, friend_id: @user4.id)
+    allow(Date).to receive(:today).and_return(Date.parse('2021-07-12'))
+    user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
+    friendship1 = Friendship.create(user_id: @user.id, friend_id: user2.id)
+    friendship2 = Friendship.create(user_id: @user.id, friend_id: user3.id)
+    friendship3 = Friendship.create(user_id: @user.id, friend_id: user4.id)
 
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
     expect(current_path).to eq new_party_path
 
     duration = '81'
-    @date = Date.parse('2021-07-14')
-    @start_time = Time.parse('1:00')
+    date = Date.parse('2021-07-14')
+    start_time = Time.parse('13:00')
     fill_in 'party[duration]', with: duration
-    fill_in 'party[date]', with: @date
-    fill_in 'party[start_time]', with: @start_time
+    fill_in 'party[date]', with: date
+    fill_in 'party[start_time]', with: start_time
     check('test_user2')
     check('test_user3')
     check('test_user4')
@@ -44,15 +45,16 @@ RSpec.describe 'New Viewing Party' do
     expect(current_path).to eq dashboard_path
     within '.hosting' do
       expect(page).to have_content('Toy Story')
-      expect(page).to have_content(@date)
-      expect(page).to have_content(@user2.username)
-      expect(page).to have_content(@user3.username)
-      expect(page).not_to have_content(@user4.username)
+      expect(page).to have_content(date)
+      expect(page).to have_content(user2.username)
+      expect(page).to have_content(user3.username)
+      expect(page).not_to have_content(user4.username)
     end
   end
 
   it "doesnt create party if user has no friends" do
-    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    allow(Date).to receive(:today).and_return(Date.parse('2021-07-12'))
+    user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
 
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
@@ -60,7 +62,7 @@ RSpec.describe 'New Viewing Party' do
 
     duration = '81'
     date = Date.parse('2021-07-14')
-    start_time = Time.parse('1:00')
+    start_time = Time.parse('13:00')
 
     fill_in 'party[duration]', with: duration
     fill_in 'party[date]', with: date
@@ -75,11 +77,12 @@ RSpec.describe 'New Viewing Party' do
   end
 
   it "doesnt create party if form is not filled out all the way" do
-    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @friendship1 = Friendship.create(user_id: @user.id, friend_id: @user2.id)
-    @friendship2 = Friendship.create(user_id: @user.id, friend_id: @user3.id)
+    allow(Date).to receive(:today).and_return(Date.parse('2021-07-12'))
+    user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
+    friendship1 = Friendship.create(user_id: @user.id, friend_id: user2.id)
+    friendship2 = Friendship.create(user_id: @user.id, friend_id: user3.id)
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
     expect(current_path).to eq new_party_path
@@ -98,18 +101,19 @@ RSpec.describe 'New Viewing Party' do
   end
 
   it "doesnt create party if no fiends are added" do
-    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @friendship1 = Friendship.create(user_id: @user.id, friend_id: @user2.id)
-    @friendship2 = Friendship.create(user_id: @user.id, friend_id: @user3.id)
+    allow(Date).to receive(:today).and_return(Date.parse('2021-07-12'))
+    user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
+    friendship1 = Friendship.create(user_id: @user.id, friend_id: user2.id)
+    friendship2 = Friendship.create(user_id: @user.id, friend_id: user3.id)
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
     expect(current_path).to eq new_party_path
 
     duration = "83"
     date = Date.parse('2021-07-28')
-    start_time = Time.parse('1:00')
+    start_time = Time.parse('13:00')
     fill_in 'party[duration]', with: duration
     fill_in 'party[date]', with: date
     fill_in 'party[start_time]', with: start_time
@@ -120,12 +124,13 @@ RSpec.describe 'New Viewing Party' do
   end
 
   it "does not create if party duration is less than movie duration" do
-    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @friendship1 = Friendship.create(user_id: @user.id, friend_id: @user2.id)
-    @friendship2 = Friendship.create(user_id: @user.id, friend_id: @user3.id)
-    @friendship3 = Friendship.create(user_id: @user.id, friend_id: @user4.id)
+    allow(Date).to receive(:today).and_return(Date.parse('2021-07-12'))
+    user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
+    friendship1 = Friendship.create(user_id: @user.id, friend_id: user2.id)
+    friendship2 = Friendship.create(user_id: @user.id, friend_id: user3.id)
+    friendship3 = Friendship.create(user_id: @user.id, friend_id: user4.id)
 
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
@@ -133,7 +138,7 @@ RSpec.describe 'New Viewing Party' do
 
     duration = '60'#actually 81
     date = Date.parse('2021-07-14')
-    start_time = Time.parse('1:00')
+    start_time = Time.parse('13:00')
     fill_in 'party[duration]', with: duration
     fill_in 'party[date]', with: date
     fill_in 'party[start_time]', with: start_time
@@ -142,5 +147,28 @@ RSpec.describe 'New Viewing Party' do
 
     expect(current_path).to eq new_party_path
     expect(page).to have_content("Error: Party duration must match or exceed movie runtime.")
+  end
+
+  it 'does not create a party if time is in the past' do
+    user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    
+    friendship1 = Friendship.create(user_id: @user.id, friend_id: user2.id)
+
+    expect(page).to have_content 'Toy Story'
+    click_on 'Create Viewing Party for Movie'
+    expect(current_path).to eq new_party_path
+
+    duration = '81'
+    date = 2.days.ago
+    start_time = Time.parse('13:00')
+    fill_in 'party[duration]', with: duration
+    fill_in 'party[date]', with: date
+    fill_in 'party[start_time]', with: start_time
+
+    check('test_user2')
+    
+    click_on "Create Party"
+
+    expect(page).to have_content "Error: A party cannot by created for a past date"
   end
 end

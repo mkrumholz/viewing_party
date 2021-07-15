@@ -51,4 +51,8 @@ class Party < ApplicationRecord
   def host
     User.find(user_id)
   end
+  
+  def host
+    User.find(user_id)
+  end
 end

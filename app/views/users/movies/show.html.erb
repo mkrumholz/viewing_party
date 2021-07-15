@@ -1,5 +1,7 @@
 <h1><%= @movie.title %></h1>
-<aside><%= link_to "Create Viewing Party for Movie", new_party_path(:title => @movie.title, :duration  => @movie.runtime, :external_movie_id => @movie.id) %></aside>
+<%= link_to "Root Path", root_path %>
+<%= link_to 'Dashboard', dashboard_path %><br><br>
+<aside><%= link_to "Create Viewing Party for Movie", new_party_path(:title => @movie.title, :duration  => @movie.runtime, :external_movie_id => @movie.id) %></aside><br><br>
 <table>
   <tr>
     <td>Vote average: <%= @movie.vote_average %></td>

@@ -23,6 +23,16 @@ RSpec.describe 'User dashboard' do
       expect(current_path).to eq("/discover")
     end
 
+    it "has a link to root path" do
+      visit '/dashboard'
+
+      expect(page).to have_link("Root Path")
+
+      click_on "Root Path"
+
+      expect(current_path).to eq root_path
+    end
+
     it "shows a message if user has no friends" do
       visit '/dashboard'
 

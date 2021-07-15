@@ -24,17 +24,18 @@ RSpec.describe 'Dashboard parties' do
     friendship1 = Friendship.create(user_id: user.id, friend_id: user2.id)
     friendship2 = Friendship.create(user_id: user.id, friend_id: user3.id)
     friendship3 = Friendship.create(user_id: user.id, friend_id: user4.id)
-    party = user.parties.create(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
+    party = user.parties.create(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
     party.invitations.create(user_id: user2.id)
     party.invitations.create(user_id: user3.id)
     visit dashboard_path
 
     within '.hosting' do
       expect(page).to have_content("Parties that I'm Hosting!")
-      expect(page).to have_content(party.movie_title)
+      expect(page).to have_content('Toy Story')
       expect(page).to have_link("#{party.movie_title}")
-      expect(page).to have_content(party.date)
-      expect(page).to have_content(party.start_time)
+      expect(page).to have_content('1 hr 21 min')
+      expect(page).to have_content('7:00pm')
+      expect(page).to have_content('Wednesday, July 14, 2021')
       expect(page).to have_content(user2.username)
       expect(page).to have_content(user3.username)
       expect(page).not_to have_content(user4.username)
@@ -69,15 +70,16 @@ RSpec.describe 'Dashboard parties' do
     friendship1 = Friendship.create(user_id: user.id, friend_id: user2.id)
     friendship2 = Friendship.create(user_id: user.id, friend_id: user3.id)
     friendship3 = Friendship.create(user_id: user.id, friend_id: user4.id)
-    party = user.parties.create(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
+    party = user.parties.create(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
     visit dashboard_path
 
     within '.hosting' do
       expect(page).to have_content("Parties that I'm Hosting!")
-      expect(page).to have_content(party.movie_title)
+      expect(page).to have_content('Toy Story')
       expect(page).to have_link("#{party.movie_title}")
-      expect(page).to have_content(party.date)
-      expect(page).to have_content(party.start_time)
+      expect(page).to have_content('1 hr 21 min')
+      expect(page).to have_content('7:00pm')
+      expect(page).to have_content('Wednesday, July 14, 2021')
       expect(page).not_to have_content(user2.username)
       expect(page).to have_content("No Friends Invited")
     end
@@ -93,7 +95,7 @@ RSpec.describe 'Dashboard parties' do
     friendship1 = Friendship.create(user_id: user.id, friend_id: user2.id)
     friendship2 = Friendship.create(user_id: user.id, friend_id: user3.id)
     friendship3 = Friendship.create(user_id: user.id, friend_id: user4.id)
-    party = user.parties.create(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
+    party = user.parties.create(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
     party.invitations.create(user_id: user2.id)
     party.invitations.create(user_id: user3.id)
     visit dashboard_path
@@ -118,17 +120,19 @@ RSpec.describe 'Dashboard parties' do
     friendship5 = Friendship.create(user_id: user2.id, friend_id: user3.id)
     friendship3 = Friendship.create(user_id: user2.id, friend_id: user4.id)
 
-    party = user2.parties.create!(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
+    party = user2.parties.create!(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
     party.invitations.create(user_id: user.id)#user2 creates party and invites user
     party.invitations.create(user_id: user3.id)
 
     visit dashboard_path
+
     within '.invited' do
       expect(page).to have_content("Parties that I'm Invited To!")
-      expect(page).to have_content(party.movie_title)
+      expect(page).to have_content('Toy Story')
       expect(page).to have_link("#{party.movie_title}")
-      expect(page).to have_content(party.date)
-      expect(page).to have_content(party.start_time)
+      expect(page).to have_content('1 hr 21 min')
+      expect(page).to have_content('7:00pm')
+      expect(page).to have_content('Wednesday, July 14, 2021')
       expect(page).to have_content(user.username)#user1 is invited
       expect(page).to have_content(user3.username)
       expect(page).not_to have_content(user4.username)
@@ -145,7 +149,7 @@ RSpec.describe 'Dashboard parties' do
     friendship4 = Friendship.create(user_id: user2.id, friend_id: user.id)#user2 is the user with the friendships
     friendship5 = Friendship.create(user_id: user2.id, friend_id: user3.id)
     friendship3 = Friendship.create(user_id: user2.id, friend_id: user4.id)
-    party = user2.parties.create!(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
+    party = user2.parties.create!(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
 
     visit dashboard_path
     within '.invited' do
@@ -165,7 +169,7 @@ RSpec.describe 'Dashboard parties' do
     friendship5 = Friendship.create(user_id: user2.id, friend_id: user3.id)
     friendship3 = Friendship.create(user_id: user2.id, friend_id: user4.id)
 
-    party = user2.parties.create!(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
+    party = user2.parties.create!(movie_title: "Toy Story", duration: "81", starts_at_date: Date.parse('2021-07-14'), starts_at_time: Time.parse('13:00'), start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
     party.invitations.create(user_id: user.id)#user2 creates party and invites user
     party.invitations.create(user_id: user3.id)
 

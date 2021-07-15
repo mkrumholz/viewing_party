@@ -45,7 +45,7 @@
     <%= link_to "#{invitation.party.movie_title}", movie_path(invitation.party.external_movie_id) %><br>
       Date: <%= invitation.party.date.strftime("%A, %B %e, %Y") %><br>
       Time: <%= invitation.party.date.strftime("%I:%M%P") %><br>
-      Length <%= "#{@party.duration / 60} hr #{@party.duration % 60} min" %>
+      Length <%= "#{ invitation.party.duration / 60} hr #{ invitation.party.duration % 60} min" %>
       Invited:<br>
       <% invitation.party.invitations.each do |friend| %><br>
         <%= friend.guest_name %><br>

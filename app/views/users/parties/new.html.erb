@@ -1,4 +1,8 @@
 <h1>Viewing Party Details</h1>
+
+<%= link_to "Welcome Page", root_path %>
+<%= link_to 'Dashboard', dashboard_path %><br><br>
+
 <%= form_with model: @party, local: true do |f| %>
   <%= f.label :movie_title, "Movie Title" %><br><br>
   <%= f.text_field :movie_title, value: @title, readonly: true %><br><br>

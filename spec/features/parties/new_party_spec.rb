@@ -18,23 +18,23 @@ RSpec.describe 'New Viewing Party' do
   end
 
   it "Creates a new viewing party" do
-    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @friendship1 = Friendship.create(user_id: @user.id, friend_id: @user2.id)
-    @friendship2 = Friendship.create(user_id: @user.id, friend_id: @user3.id)
-    @friendship3 = Friendship.create(user_id: @user.id, friend_id: @user4.id)
+    user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
+    friendship1 = Friendship.create(user_id: @user.id, friend_id: user2.id)
+    friendship2 = Friendship.create(user_id: @user.id, friend_id: user3.id)
+    friendship3 = Friendship.create(user_id: @user.id, friend_id: user4.id)
 
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
     expect(current_path).to eq new_party_path
 
     duration = '81'
-    @date = Date.parse('2021-07-14')
-    @start_time = Time.parse('1:00')
+    date = Date.parse('2021-07-14')
+    start_time = Time.parse('13:00')
     fill_in 'party[duration]', with: duration
-    fill_in 'party[date]', with: @date
-    fill_in 'party[start_time]', with: @start_time
+    fill_in 'party[date]', with: date
+    fill_in 'party[start_time]', with: start_time
     check('test_user2')
     check('test_user3')
     check('test_user4')
@@ -45,15 +45,15 @@ RSpec.describe 'New Viewing Party' do
     within '.hosting' do
       expect(page).to have_content('Toy Story')
       expect(page).to have_content('Wednesday, July 14, 2021')
-      expect(page).to have_content('07:00am')
-      expect(page).to have_content(@user2.username)
-      expect(page).to have_content(@user3.username)
-      expect(page).not_to have_content(@user4.username)
+      expect(page).to have_content('07:00pm')
+      expect(page).to have_content(user2.username)
+      expect(page).to have_content(user3.username)
+      expect(page).not_to have_content(user4.username)
     end
   end
 
   it "doesnt create party if user has no friends" do
-    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
 
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
@@ -79,11 +79,11 @@ RSpec.describe 'New Viewing Party' do
   end
 
   it "doesnt create party if form is not filled out all the way" do
-    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @friendship1 = Friendship.create(user_id: @user.id, friend_id: @user2.id)
-    @friendship2 = Friendship.create(user_id: @user.id, friend_id: @user3.id)
+    user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
+    friendship1 = Friendship.create(user_id: @user.id, friend_id: user2.id)
+    friendship2 = Friendship.create(user_id: @user.id, friend_id: user3.id)
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
     expect(current_path).to eq new_party_path
@@ -102,11 +102,11 @@ RSpec.describe 'New Viewing Party' do
   end
 
   it "doesnt create party if no fiends are added" do
-    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @friendship1 = Friendship.create(user_id: @user.id, friend_id: @user2.id)
-    @friendship2 = Friendship.create(user_id: @user.id, friend_id: @user3.id)
+    user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
+    friendship1 = Friendship.create(user_id: @user.id, friend_id: user2.id)
+    friendship2 = Friendship.create(user_id: @user.id, friend_id: user3.id)
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'
     expect(current_path).to eq new_party_path
@@ -124,12 +124,12 @@ RSpec.describe 'New Viewing Party' do
   end
 
   it "does not create if party duration is less than movie duration" do
-    @user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
-    @friendship1 = Friendship.create(user_id: @user.id, friend_id: @user2.id)
-    @friendship2 = Friendship.create(user_id: @user.id, friend_id: @user3.id)
-    @friendship3 = Friendship.create(user_id: @user.id, friend_id: @user4.id)
+    user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user3 = User.create(username: 'test_user3', email: 'user3@test.com', password: 'test_password', password_confirmation: 'test_password')
+    user4 = User.create(username: 'test_user4', email: 'user4@test.com', password: 'test_password', password_confirmation: 'test_password')
+    friendship1 = Friendship.create(user_id: @user.id, friend_id: user2.id)
+    friendship2 = Friendship.create(user_id: @user.id, friend_id: user3.id)
+    @friendship3 = Friendship.create(user_id: @user.id, friend_id: user4.id)
 
     expect(page).to have_content 'Toy Story'
     click_on 'Create Viewing Party for Movie'

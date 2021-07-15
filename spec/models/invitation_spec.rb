@@ -15,6 +15,7 @@ RSpec.describe Invitation do
         friendship1 = Friendship.create(user_id: user.id, friend_id: user2.id)
         party = user.parties.create(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 01:00:00 -0600", external_movie_id: 862)
         invitation = party.invitations.create(user_id: user2.id)
+
         expect(invitation.guest_name).to eq(user2.username)
       end
     end

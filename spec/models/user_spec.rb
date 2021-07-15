@@ -35,7 +35,6 @@ RSpec.describe User do
 
       it 'can add a new friend for the user' do
         user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
-
         @user.add_friend(user2)
 
         expect(@user.friends).to include user2

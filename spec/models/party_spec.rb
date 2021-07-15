@@ -48,8 +48,7 @@ RSpec.describe Party do
       party.invitations.create(user_id: user2.id)
       party.invitations.create(user_id: user3.id)
 
-      expect { party.send_invitations }
-      .to change { ActionMailer::Base.deliveries.count }.by(2)
+      expect { party.send_invitations }.to change { ActionMailer::Base.deliveries.count }.by(2)
     end
   end
 end

@@ -10,7 +10,9 @@ class Party < ApplicationRecord
 
   def send_invitations
     host = User.find(user_id)
-    friend = User.find(invitations.first.user_id)
-    InvitationMailer.invite(host, friend, self).deliver_now
+    friends = invitations.map { |invitation| User.find(invitation.user_id) }
+    friends.each do |friend|
+      InvitationMailer.invite(host, friend, self).deliver_now
+    end
   end
 end

@@ -8,18 +8,18 @@ class Users::PartiesController < Users::BaseController
 
   def create
     new_party = current_user.parties.new(party_params)
-    if params[:party][:duration] < params[:runtime]
-      flash[:error] = 'Error: Party duration must match or exceed movie runtime.'
-      redirect_with_params
-    elsif params[:party][:invitations].nil? || params[:party][:invitations].all? { |friend| friend == '' }
+    if params[:party][:invitations].nil? || params[:party][:invitations].all? { |friend| friend == '' }
       flash[:error] = 'Error: Party must need friends.'
+      redirect_with_params
+    elsif params[:party][:duration] < params[:runtime]
+      flash[:error] = 'Error: Party duration must match or exceed movie runtime.'
       redirect_with_params
     elsif new_party.save
       create_invitations(new_party)
       flash[:success] = 'New Viewing Party Created'
       redirect_to dashboard_path
     else
-      flash[:error] = 'Error: Party not created'
+      flash[:error] = "#{error_message(new_party.errors)}"
       redirect_with_params
     end
   end

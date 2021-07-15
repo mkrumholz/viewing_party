@@ -44,7 +44,8 @@ RSpec.describe 'New Viewing Party' do
     expect(current_path).to eq dashboard_path
     within '.hosting' do
       expect(page).to have_content('Toy Story')
-      expect(page).to have_content(@date)
+      expect(page).to have_content('Wednesday, July 14, 2021')
+      expect(page).to have_content('07:00am')
       expect(page).to have_content(@user2.username)
       expect(page).to have_content(@user3.username)
       expect(page).not_to have_content(@user4.username)

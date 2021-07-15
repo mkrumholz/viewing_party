@@ -61,7 +61,7 @@ RSpec.describe 'New Viewing Party' do
 
     duration = '81'
     date = Date.parse('2021-07-14')
-    start_time = Time.parse('1:00')
+    start_time = Time.parse('13:00')
 
     fill_in 'party[duration]', with: duration
     fill_in 'party[date]', with: date
@@ -113,7 +113,7 @@ RSpec.describe 'New Viewing Party' do
 
     duration = "83"
     date = Date.parse('2021-07-28')
-    start_time = Time.parse('1:00')
+    start_time = Time.parse('13:00')
     fill_in 'party[duration]', with: duration
     fill_in 'party[date]', with: date
     fill_in 'party[start_time]', with: start_time
@@ -137,7 +137,7 @@ RSpec.describe 'New Viewing Party' do
 
     duration = '60'#actually 81
     date = Date.parse('2021-07-14')
-    start_time = Time.parse('1:00')
+    start_time = Time.parse('13:00')
     fill_in 'party[duration]', with: duration
     fill_in 'party[date]', with: date
     fill_in 'party[start_time]', with: start_time

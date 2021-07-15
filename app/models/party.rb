@@ -9,10 +9,13 @@ class Party < ApplicationRecord
   validates :external_movie_id, presence: true
 
   def send_invitations
-    host = User.find(user_id)
     friends = invitations.map { |invitation| User.find(invitation.user_id) }
     friends.each do |friend|
       InvitationMailer.invite(host, friend, self).deliver_now
     end
+  end
+
+  def host
+    User.find(user_id)
   end
 end

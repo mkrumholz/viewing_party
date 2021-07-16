@@ -19,7 +19,7 @@ class Users::PartiesController < Users::BaseController
       flash[:success] = 'New Viewing Party Created'
       redirect_to dashboard_path
     else
-      flash[:error] = "#{error_message(new_party.errors)}"
+      flash[:error] = error_message(new_party.errors).to_s
       redirect_with_params
     end
   end
@@ -41,6 +41,6 @@ class Users::PartiesController < Users::BaseController
     starts_at = Time.zone.parse("#{params[:party][:starts_at_date]} #{params[:party][:starts_at_time]}")
     params.require(:party).permit(:movie_title, :duration)
           .merge({ external_movie_id: params[:external_movie_id] })
-          .merge({starts_at: starts_at})
+          .merge({ starts_at: starts_at })
   end
 end

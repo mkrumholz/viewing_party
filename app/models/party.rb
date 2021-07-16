@@ -12,7 +12,7 @@ class Party < ApplicationRecord
     return if starts_at.blank?
 
     error_msg = 'Error: Party must be set for a future date'
-    errors.add(:date, error_msg) if starts_at < Time.now
+    errors.add(:date, error_msg) if starts_at < Time.zone.now
   end
 
   def send_invitations

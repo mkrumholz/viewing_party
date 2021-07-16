@@ -38,7 +38,9 @@ class Users::PartiesController < Users::BaseController
   end
 
   def party_params
-    params.require(:party).permit(:movie_title, :duration, :date, :start_time)
+    starts_at = Time.zone.parse("#{params[:party][:starts_at_date]} #{params[:party][:starts_at_time]}")
+    params.require(:party).permit(:movie_title, :duration)
           .merge({ external_movie_id: params[:external_movie_id] })
+          .merge({starts_at: starts_at})
   end
 end

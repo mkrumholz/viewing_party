@@ -4,8 +4,7 @@ class Party < ApplicationRecord
 
   validates :movie_title, presence: true
   validates :duration, presence: true
-  validates :date, presence: true
-  validates :start_time, presence: true
+  validates :starts_at, presence: true
   validates :external_movie_id, presence: true
 
   def send_invitations
@@ -13,6 +12,14 @@ class Party < ApplicationRecord
     friends.each do |friend|
       InvitationMailer.invite(host, friend, self).deliver_now
     end
+  end
+
+  def starts_at_date
+    starts_at&.strftime('%m/%d/%Y')
+  end
+
+  def starts_at_time
+    starts_at&.strftime('%H:%M')
   end
 
   def host

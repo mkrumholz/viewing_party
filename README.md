@@ -1,7 +1,6 @@
 # Viewing Party
 
 
-
 ### About
 
 Viewing party is an application for users to explore movies via The Movie Database API and create viewing parties. Users can host their own parties and invite their friends on the app or attend parties hosted by other users.
@@ -30,7 +29,6 @@ Viewing party is an application for users to explore movies via The Movie Databa
 
 <img width="400" alt="database schema diagram" src="https://user-images.githubusercontent.com/26797256/125482889-0357bbc1-45e7-4018-829e-cebfdc18d446.png">
 
-
 ## Important Gems
 Testing
 * [rspec-rails](https://github.com/rspec/rspec-rails)
@@ -57,8 +55,6 @@ API Consumption
 - Rails 5.2.5
 
 <!-- screenshots of final app -->
-Example wireframes to follow are found [here](https://backend.turing.io/module3/projects/viewing_party/wireframes)
-
 ## Maintainers/Teammates
 
 <!-- info about and links to our github/linkedins etc. -->

@@ -7,6 +7,27 @@ RSpec.describe Party do
   end
 
   describe 'validations' do
+    valid_party = Party.create(
+      user_id: 1,
+      movie_title: 'Toy_story',
+      starts_at: Time.zone.parse("2021-07-14 01:00:00 -0600"),
+      external_movie_id: 200
+    )
+
+    invalid_party1 = Party.create(
+        user_id: 1,
+        movie_title: 'Toy_story',
+        starts_at: 2.days.ago,
+        external_movie_id: 200
+      )
+
+      invalid_party2 = Party.create(
+        user_id: 1,
+        movie_title: 'Toy_story',
+        starts_at: Time.now - 10.minutes,
+        external_movie_id: 200
+      )
+
     it { should validate_presence_of(:movie_title) }
     it { should validate_presence_of(:duration) }
     it { should validate_presence_of(:starts_at) }

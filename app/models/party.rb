@@ -6,6 +6,14 @@ class Party < ApplicationRecord
   validates :duration, presence: true
   validates :starts_at, presence: true
   validates :external_movie_id, presence: true
+  validate :date_is_valid?
+
+  def date_is_valid?
+    return if starts_at.blank?
+
+    error_msg = 'Error: Party must be set for a future date'
+    errors.add(:date, error_msg) if starts_at < Time.now
+  end
 
   def send_invitations
     friends = invitations.map { |invitation| User.find(invitation.user_id) }

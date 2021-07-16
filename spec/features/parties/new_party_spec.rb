@@ -3,6 +3,7 @@ RSpec.describe 'New Viewing Party' do
   before :each do
     @user = User.create(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password')
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    allow(Time).to receive(:now).and_return(Time.zone.parse("2021-07-10 01:00:00 -0600"))
 
     response_body = File.read('./spec/fixtures/toy_story.json')
     stub_request(:get, "https://api.themoviedb.org/3/movie/862?api_key=#{ENV['MOVIE_DB_KEY']}&language=en&append_to_response=credits,reviews")
@@ -122,6 +123,31 @@ RSpec.describe 'New Viewing Party' do
 
     expect(page).to have_content('Error: Party must need friends.')
     expect(current_path).to eq new_party_path
+  end
+
+  it 'does not create a party if time is in the past' do
+    user2 = User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password')
+
+    friendship1 = Friendship.create(user_id: @user.id, friend_id: user2.id)
+
+    expect(page).to have_content 'Toy Story'
+
+    click_on 'Create Viewing Party for Movie'
+
+    expect(current_path).to eq new_party_path
+
+    duration = '81'
+    starts_at_date = 5.days.ago
+    starts_at_time = Time.parse('13:00')
+
+    fill_in 'party[duration]', with: duration
+    fill_in 'party[starts_at_date]', with: starts_at_date
+    fill_in 'party[starts_at_time]', with: starts_at_time
+    check('test_user2')
+
+    click_on "Create Party"
+
+    expect(page).to have_content "Party must be set for a future date"
   end
 
   it "does not create if party duration is less than movie duration" do

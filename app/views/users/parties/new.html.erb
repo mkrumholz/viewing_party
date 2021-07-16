@@ -11,11 +11,11 @@
   <%= f.number_field :duration, placeholder: @duration, min: @duration %><br><br>
   <%= hidden_field_tag :runtime, @duration %>
 
-  <%= f.label :date, "Day" %><br>
-  <%= f.date_field :date %><br><br>
+  <%= f.label :starts_at_date, "Date" %><br>
+  <%= f.date_field :starts_at_date %><br><br>
 
-  <%= f.label :start_time, "Start Time" %><br>
-  <%= f.time_field :start_time %><br><br>
+  <%= f.label :starts_at_time, "Start Time" %><br>
+  <%= f.time_field :starts_at_time %><br><br>
 
   <%= f.label :include, "Include" %><br><br>
   <%= hidden_field_tag :runtime, @duration %>

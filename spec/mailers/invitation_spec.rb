@@ -4,7 +4,7 @@ RSpec.describe InvitationMailer, type: :mailer do
   describe 'invite' do
     let(:user) { User.create(username: 'test_user', email: 'user@test.com', password: 'test_password', password_confirmation: 'test_password') }
     let(:user2) { User.create(username: 'test_user2', email: 'user2@test.com', password: 'test_password', password_confirmation: 'test_password') }
-    let(:party) { user.parties.create(movie_title: "Toy Story", duration: "81", date: "2021-07-14", start_time: "2021-07-12 13:00:00 -0600", external_movie_id: 862) }
+    let(:party) { user.parties.create(movie_title: "Toy Story", duration: "81", starts_at: Time.zone.parse("2021-07-14 01:00:00 -0600"), external_movie_id: 862) }
 
     let(:mail) { InvitationMailer.invite(user, user2, party).deliver_now }
 
@@ -31,7 +31,7 @@ RSpec.describe InvitationMailer, type: :mailer do
     it 'assigns @party and shows details' do
       expect(mail.body.encoded).to match(party.movie_title)
       expect(mail.body.encoded).to match('Wednesday, July 14, 2021')
-      expect(mail.body.encoded).to match('07:00pm')
+      expect(mail.body.encoded).to match('07:00am')
       expect(mail.body.encoded).to match('1 hr 21 min')
     end
   end

@@ -55,11 +55,7 @@ API Consumption
 - Rails 5.2.5
 
 <!-- screenshots of final app -->
-## Maintainers/Teammates
-
-<!-- info about and links to our github/linkedins etc. -->
-
 ## Authors
 
-- Molly Krumholz - mkrumholz
-- Emmy Morris - 
+- Molly Krumholz - [mkrumholz](https://github.com/mkrumholz)
+- Emmy Morris - [emmymorris](https://github.com/EmmyMorris)

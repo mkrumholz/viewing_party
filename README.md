@@ -3,7 +3,7 @@
 
 ### About
 
-Viewing party is an application for users to explore movies via The Movie Database API and create viewing parties. Users can host their own parties and invite their friends on the app or attend parties hosted by other users.
+Viewing Party allows users to explore movies via The Movie Database API and create viewing parties. Users can host their own parties and invite their friends on the app or attend parties hosted by other users.
 
 [👀 Visit the app on Heroku](https://rocky-retreat-38535.herokuapp.com/)
 
